@@ -2,10 +2,6 @@
   width: 140px;
 }
 
-.form-input {
-  width: 40%;
-}
-
 .dropdown-menu[data-bs-popper] {
   left: auto;
   right: 0;

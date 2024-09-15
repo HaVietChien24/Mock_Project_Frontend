@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+.header-search {
+  width: 40%;
+}
+
+.text-lightgray {
+  color: #d3d3d3;
+}

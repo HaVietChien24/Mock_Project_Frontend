@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit {
   bookList: any = [];
   genreList: any = [];
-
+  title: string = 'All Books';
   constructor(
     private bookService: BookService,
     private genreService: GenreService
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
         this.bookList = response;
       },
       error: (error) => {
-        console.error('Error fetching data:', error);
+        this.bookList = [];
       },
     });
 
@@ -38,7 +38,19 @@ export class HomeComponent implements OnInit {
         this.genreList = response;
       },
       error: (error) => {
-        console.error('Error fetching data:', error);
+        this.genreList = [];
+      },
+    });
+  }
+
+  getBooksByGenre(genre: any) {
+    this.title = genre.name;
+    this.bookService.getByGenreId(genre.id).subscribe({
+      next: (response) => {
+        this.bookList = response;
+      },
+      error: (error) => {
+        this.bookList = [];
       },
     });
   }

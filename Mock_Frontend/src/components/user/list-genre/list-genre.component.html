@@ -5,7 +5,14 @@
     <div class="ps-3 pb-5">
       <div class="navbar-nav">
         @for (item of genreList; track $index) {
-        <a class="nav-link mb-2" aria-current="page" href="#">
+        <a
+          type="button"
+          class="nav-link mb-2 {{
+            item.id == genreId ? 'text-success fw-bold' : ''
+          }}"
+          aria-current="page"
+          (click)="onSelectGenre(item)"
+        >
           <i class="fa-solid fa-bars text-lightgray me-3"></i>{{ item.name }}</a
         >
         }

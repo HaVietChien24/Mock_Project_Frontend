@@ -1,0 +1,12 @@
+.sidebar {
+  width: 20%;
+  min-height: 100vh;
+}
+
+.main-content {
+  width: 80%;
+}
+
+.card-img-top {
+  height: 140px;
+}

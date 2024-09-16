@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   bookList: any = [];
   genreList: any = [];
   title: string = 'All Books';
+  genreId: number = 0;
   constructor(
     private bookService: BookService,
     private genreService: GenreService
@@ -45,7 +46,21 @@ export class HomeComponent implements OnInit {
 
   getBooksByGenre(genre: any) {
     this.title = genre.name;
+    this.genreId = genre.id;
     this.bookService.getByGenreId(genre.id).subscribe({
+      next: (response) => {
+        this.bookList = response;
+      },
+      error: (error) => {
+        this.bookList = [];
+      },
+    });
+  }
+
+  onSearch(search: string) {
+    this.title = 'Search Result';
+    this.genreId = 0;
+    this.bookService.searchByTitleOrAuthor(search).subscribe({
       next: (response) => {
         this.bookList = response;
       },

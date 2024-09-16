@@ -21,14 +21,26 @@
         </li>
       </ul>
 
-      <form class="d-flex header-search">
+      <form
+        #formSearch="ngForm"
+        (ngSubmit)="onSubmit(formSearch)"
+        class="d-flex header-search"
+      >
         <input
           class="form-control bg-secondary-subtle"
-          type="search"
+          type="text"
           placeholder="Search..."
           aria-label="Search"
+          id="search"
+          name="search"
+          required
+          [(ngModel)]="searchInput"
         />
-        <button class="btn border-0" type="submit">
+        <button
+          [disabled]="formSearch.invalid"
+          class="btn border-0"
+          type="submit"
+        >
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>

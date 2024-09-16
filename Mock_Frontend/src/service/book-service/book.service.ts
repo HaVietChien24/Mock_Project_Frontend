@@ -17,4 +17,10 @@ export class BookService {
   getByGenreId(id: number): Observable<any> {
     return this.http.get<any>(`${this.linkApi.getBooksByGenreId}/${id}`);
   }
+
+  searchByTitleOrAuthor(search: string): Observable<any> {
+    return this.http.get<any>(this.linkApi.searchByTitleOrAuthor, {
+      params: { search: search },
+    });
+  }
 }

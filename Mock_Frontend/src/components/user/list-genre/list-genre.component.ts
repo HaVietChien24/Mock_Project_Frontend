@@ -10,10 +10,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ListGenreComponent {
   @Input() genreList: any;
   @Output() selectGenre: EventEmitter<any> = new EventEmitter<any>();
+  @Input() genreId!: number;
 
-  genreId: number = 0;
   onSelectGenre(genre: any) {
-    this.genreId = genre.id;
     this.selectGenre.emit(genre);
   }
 }

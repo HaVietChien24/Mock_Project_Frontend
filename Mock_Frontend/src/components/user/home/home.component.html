@@ -1,8 +1,9 @@
-<app-header></app-header>
+<app-header (search)="onSearch($event)"></app-header>
 <div class="container-fluid d-flex p-0">
   <div class="sidebar">
     <app-list-genre
       [genreList]="genreList"
+      [genreId]="genreId"
       (selectGenre)="getBooksByGenre($event)"
     ></app-list-genre>
   </div>

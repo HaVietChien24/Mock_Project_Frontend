@@ -8,5 +8,6 @@
 }
 
 .card-img-top {
-  height: 140px;
+  height: 200px;
+  object-fit: cover;
 }

@@ -1,3 +1,3 @@
 export class ApiLink {
-  getBook: string = "link api get book";
+    getBook: string = "link api get book";
 }

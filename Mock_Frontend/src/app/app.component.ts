@@ -3,12 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from '../components/user/home/home.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HomeComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+    selector: 'app-root',
+    standalone: true,
+    imports: [RouterOutlet, HomeComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'Mock_Frontend';
+    title = 'Mock_Frontend';
 }

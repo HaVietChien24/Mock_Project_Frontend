@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+import { ApiLink } from '../../api/link-api';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GenreService {
+  linkApi: ApiLink = new ApiLink();
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  getAll(): Observable<any> {
+    return this.http.get<any>(this.linkApi.getAllGenres);
+  }
 }

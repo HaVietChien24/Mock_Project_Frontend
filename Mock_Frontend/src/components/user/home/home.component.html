@@ -1,2 +1,61 @@
 <app-header></app-header>
-<div class="container-fluid"></div>
+<div class="container-fluid d-flex p-0">
+  <div class="sidebar">
+    <app-list-genre [genreList]="genreList"></app-list-genre>
+  </div>
+  <div class="main-content container-fluid p-5">
+    <div class="h1">All Books</div>
+    <hr />
+
+    <section class="py-3">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        >
+          <div *ngIf="bookList.length == 0" class="fst-italic">
+            Temporarily unavailable
+          </div>
+          @for (item of bookList; track $index) {
+          <div class="col mb-5">
+            <div class="card h-100" type="button">
+              <img
+                class="card-img-top"
+                src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                alt="..."
+              />
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">{{ item.title }}</h5>
+                  {{ item.author }}
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div
+                  *ngIf="item.amount > 0; else elseBlock"
+                  class="d-flex justify-content-center small text-warning mb-2"
+                >
+                  <div class="bi-star-fill">Available: {{ item.amount }}</div>
+                </div>
+
+                <ng-template #elseBlock>
+                  <div
+                    class="d-flex justify-content-center small text-secondary fst-italic mb-2"
+                  >
+                    <div class="bi-star-fill">Temporarily Out of Stock</div>
+                  </div>
+                </ng-template>
+
+                <div class="text-center">
+                  <a class="btn btn-outline-success mt-auto" href="#"
+                    >Add to Wishlist</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

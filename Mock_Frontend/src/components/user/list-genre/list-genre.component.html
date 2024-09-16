@@ -1,0 +1,15 @@
+<div class="sidebar bg-light h-100 bg-white px-4 py-4 border-end">
+  <div class="container-fluid">
+    <div class="ps-3 h5">List Genres</div>
+    <hr class="text-lightgray" />
+    <div class="ps-3 pb-5">
+      <div class="navbar-nav">
+        @for (item of genreList; track $index) {
+        <a class="nav-link mb-2" aria-current="page" href="#">
+          <i class="fa-solid fa-bars text-lightgray me-3"></i>{{ item.name }}</a
+        >
+        }
+      </div>
+    </div>
+  </div>
+</div>

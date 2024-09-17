@@ -1,0 +1,30 @@
+<div class="sidebar bg-light h-100 bg-white px-4 py-4 border-end">
+  <div class="container-fluid">
+    <!-- <a href="/" class="btn btn-outline-light text-success">All Books</a> -->
+    <a
+      class="btn bg-lightblue w-100 rounded-4 py-2 text-white mt-3 mb-4"
+      href="/"
+    >
+      <i class="fa-solid fa-house me-3"></i>
+      All Books</a
+    >
+    <div class="ps-3 h5">List Genres</div>
+    <hr class="text-lightgray" />
+    <div class="ps-3 pb-5">
+      <div class="navbar-nav">
+        @for (item of genreList; track $index) {
+        <a
+          type="button"
+          class="nav-link mb-2 {{
+            item.id == genreId ? 'text-success fw-bold' : ''
+          }}"
+          aria-current="page"
+          (click)="onSelectGenre(item)"
+        >
+          <i class="fa-solid fa-bars text-lightgray me-3"></i>{{ item.name }}</a
+        >
+        }
+      </div>
+    </div>
+  </div>
+</div>

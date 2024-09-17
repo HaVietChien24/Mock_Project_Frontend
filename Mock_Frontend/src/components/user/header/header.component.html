@@ -57,7 +57,7 @@
               <img
                 class="avatar rounded-circle border border-white"
                 src="{{
-                  userInfo.imageURL
+                  userInfo?.imageURL
                     ? userInfo.imageURL
                     : 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
                 }}"
@@ -73,7 +73,9 @@
             <i class="fa-solid fa-sort-down"></i>
           </div>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Your Wislish</a></li>
+            <li>
+              <a class="dropdown-item" href="/wish-list">Your Wishlish</a>
+            </li>
             <li><a class="dropdown-item" href="#">Your Requests</a></li>
             <li><a class="dropdown-item" href="#">Book Borrowing</a></li>
             <li><a class="dropdown-item" href="#">History</a></li>

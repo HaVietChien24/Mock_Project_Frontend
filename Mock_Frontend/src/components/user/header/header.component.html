@@ -22,6 +22,7 @@
       </ul>
 
       <form
+        [hidden]="isShow"
         #formSearch="ngForm"
         (ngSubmit)="onSubmit(formSearch)"
         class="d-flex header-search"

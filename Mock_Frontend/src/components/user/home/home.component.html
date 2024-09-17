@@ -1,4 +1,4 @@
-<app-header (search)="onSearch($event)"></app-header>
+<app-header [isShow]="true" (search)="onSearch($event)"></app-header>
 <div class="container-fluid d-flex p-0">
   <div class="sidebar">
     <app-list-genre
@@ -21,7 +21,7 @@
           </div>
           @for (item of bookList; track $index) {
           <div class="col mb-5">
-            <div class="card h-100" type="button">
+            <div class="card h-100" type="button" (click)="bookDetails(item)">
               <img
                 class="card-img-top"
                 src="{{

@@ -1,12 +1,12 @@
 <div class="outer-container">
-    <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="row mb-2">
             <div class="col-6">
                 <h1>Sign In</h1>
                 <p>Welcome to the online library</p>
             </div>
             <div class="col-6">
-                <img class="header-logo" src="assets/images/logo/logo-no-background.png" id="logo" />
+                <img src="assets/images/logo/logo-no-background.png" id="logo" />
             </div>
         </div>
 
@@ -34,8 +34,15 @@
         </div>
         }
 
-        <button type="submit" class="btn btn-primary w-100 mt-2" [disabled]="form.invalid">
+        <button type="submit" class="btn btn-primary w-100 mt-2" [disabled]="loginForm.invalid || isLoading">
+            @if (isLoading) {
+            <app-spinner></app-spinner>
+            }
+            @else {
             Sign In
+            }
         </button>
+
+        <a routerLink="/register" class="redirector">Don't have an account yet? Register now!</a>
     </form>
 </div>

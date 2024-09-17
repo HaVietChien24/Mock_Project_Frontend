@@ -1,83 +1,187 @@
 <div class="outer-container">
-    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="row mb-2">
-            <div class="col-6">
-                <h1>Register</h1>
-                <p>Welcome to the online library</p>
-            </div>
-            <div class="col-6">
-                <img src="assets/images/logo/logo-no-background.png" id="logo" />
-            </div>
-        </div>
+  <form
+    class="register-form"
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="row mb-2">
+      <div class="col-6">
+        <h1>Register</h1>
+        <p>Welcome to the online library</p>
+      </div>
+      <div class="col-6">
+        <img src="assets/images/logo/logo-no-background.png" id="logo" />
+      </div>
+    </div>
 
-        @if (errorMessage) {
-        <div class="alert alert-danger w-100 danger-box mt-2">
-            {{errorMessage}}
-        </div>
+    @if (errorMessage) {
+    <div class="alert alert-danger w-100 danger-box mt-2">
+      {{ errorMessage }}
+    </div>
+    }
+
+    <div class="form-group name-row">
+      <div>
+        <label for="firstName">First Name*</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="First Name"
+          formControlName="firstName"
+        />
+
+        @if(getInput('firstName')?.hasError('required')&&
+        getInput('firstName')?.touched) {
+        <p class="text-danger">First name is required</p>
         }
+      </div>
 
-        <div class="form-group name-row">
-            <div>
-                <label for="firstName">First Name*</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name"
-                    formControlName="firstName" />
-            </div>
+      <div>
+        <label for="lastName">Last Name*</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="Last Name"
+          formControlName="lastName"
+        />
 
-            <div>
-                <label for="lastName">Last Name*</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name"
-                    formControlName="lastName" />
-            </div>
-        </div>
+        @if(getInput('lastName')?.hasError('required') &&
+        getInput('lastName')?.touched) {
+        <p class="text-danger">Last name is required</p>
+        }
+      </div>
+    </div>
 
-        <div class="form-group">
-            <label for="username">Username*</label>
-            <input type="text" class="form-control" id="username" placeholder="Username" formControlName="username" />
-        </div>
+    <div class="form-group">
+      <label for="username">Username*</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Username"
+        formControlName="username"
+      />
 
-        <div class="form-group">
-            <label for="email">Email*</label>
-            <input type="text" class="form-control" id="email" placeholder="Email" formControlName="email" />
-        </div>
+      @if(getInput('username')?.hasError('required') &&
+      getInput('username')?.touched) {
+      <p class="text-danger">Username is required</p>
+      }
+    </div>
 
-        <div class="form-group">
-            <label for="phone">Phone Number*</label>
-            <input type="text" class="form-control" id="phone" placeholder="Phone Number" formControlName="phone" />
-        </div>
+    <div class="form-group">
+      <label for="email">Email*</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        placeholder="Email"
+        formControlName="email"
+      />
 
-        <div class="form-group">
-            <label for="password">Password*</label>
-            <div class="password-row">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password"
-                    placeholder="Password" formControlName="password" />
+      @if(getInput('email')?.hasError('email') && getInput('email')?.touched) {
+      <p class="text-danger">Email is invalid</p>
+      }
+    </div>
 
-                <button type="button" class="btn btn-success ms-2 show-password-btn" (click)="handleShowPassword()">
-                    <i [className]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
-                </button>
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="phone">Phone Number*</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phone"
+        placeholder="Phone Number"
+        formControlName="phone"
+      />
 
-        <div class="form-group">
-            <label for="confirmPassword">Confirm Password*</label>
-            <div class="password-row">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="confirmPassword"
-                    placeholder="Password" formControlName="confirmPassword" />
+      @if(getInput('phone')?.hasError('pattern') && getInput('phone')?.touched)
+      {
+      <p class="text-danger">Phone Number is invalid</p>
+      }
+    </div>
 
-                <button type="button" class="btn btn-success ms-2 show-password-btn" (click)="handleShowPassword()">
-                    <i [className]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
-                </button>
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="password">Password*</label>
+      <div class="password-row">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+          formControlName="password"
+        />
 
-        <button type="submit" class="btn btn-primary w-100 mt-2" [disabled]="registerForm.invalid || isLoading">
-            @if (isLoading) {
-            <app-spinner></app-spinner>
-            }
-            @else {
-            Register
-            }
+        <button
+          type="button"
+          class="btn btn-success ms-2 show-password-btn"
+          (click)="handleShowPassword()"
+        >
+          <i
+            [className]="
+              showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'
+            "
+          ></i>
         </button>
+      </div>
 
-        <a routerLink="/login" class="redirector">Already have an account? Login now!</a>
-    </form>
+      @if(getInput('password')?.hasError('required') &&
+      getInput('password')?.touched) {
+      <p class="text-danger">Password is required</p>
+      } @if(getInput('password')?.hasError('pattern') &&
+      getInput('password')?.touched) {
+      <p class="text-danger">Password is not strong enough</p>
+      }
+
+      <p>
+        (Password must be at least 8 characters long, contain at least 1
+        uppercase letter, 1 lowercase letter, 1 number, and 1 special
+        character.)
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password*</label>
+      <div class="password-row">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          class="form-control"
+          id="confirmPassword"
+          placeholder="Password"
+          formControlName="confirmPassword"
+        />
+
+        <button
+          type="button"
+          class="btn btn-success ms-2 show-password-btn"
+          (click)="handleShowPassword()"
+        >
+          <i
+            [className]="
+              showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'
+            "
+          ></i>
+        </button>
+      </div>
+
+      @if(getInput('confirmPassword')?.hasError('required') &&
+      getInput('confirmPassword')?.touched) {
+      <p class="text-danger">Confirm Password is required</p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-100 mt-2"
+      [disabled]="registerForm.invalid || isLoading"
+    >
+      @if (isLoading) {
+      <app-spinner></app-spinner>
+      } @else { Register }
+    </button>
+
+    <a routerLink="/login" class="redirector"
+      >Already have an account? Login now!</a
+    >
+  </form>
 </div>

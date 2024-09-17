@@ -1,45 +1,83 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid px-5 py-2">
-        <a class="navbar-brand" href="#">
-            <img class="header-logo" src="assets/images/logo/logo-no-background.png" alt="" />
-        </a>
+<nav class="navbar navbar-expand-lg navbar-light border-bottom">
+  <div class="container-fluid px-5 py-2">
+    <a class="navbar-brand" href="/">
+      <img
+        class="header-logo"
+        src="assets/images/logo/logo-no-background.png"
+        alt=""
+      />
+    </a>
 
-        <div class="navbar-collapse d-flex justify-content-between ms-5" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a routerLink="/" class="nav-link active">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/admin/dashboard" class="nav-link active">Admin</a>
-                </li>
-            </ul>
+    <div
+      class="navbar-collapse d-flex justify-content-between ms-5"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a href="/" class="nav-link active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/admin/dashboard" class="nav-link active">Admin</a>
+        </li>
+      </ul>
 
-            <form class="d-flex header-search">
-                <input class="form-control bg-secondary-subtle" type="search" placeholder="Search..."
-                    aria-label="Search" />
-                <button class="btn border-0" type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Your Wislish</a></li>
-                        <li><a class="dropdown-item" href="#">Your Requests</a></li>
-                        <li><a class="dropdown-item" href="#">Book Borrowing</a></li>
-                        <li><a class="dropdown-item" href="#">History</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="#">Your Profile</a></li>
-                        <li><a class="dropdown-item" routerLink="/login">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+      <form
+        #formSearch="ngForm"
+        (ngSubmit)="onSubmit(formSearch)"
+        class="d-flex header-search"
+      >
+        <input
+          class="form-control bg-secondary-subtle"
+          type="text"
+          placeholder="Search..."
+          aria-label="Search"
+          id="search"
+          name="search"
+          required
+          [(ngModel)]="searchInput"
+        />
+        <button
+          [disabled]="formSearch.invalid"
+          class="btn border-0"
+          type="submit"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <div
+            type="button"
+            class="d-flex p-2 bg-light rounded-4 h-100 pe-3"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <div class="w-25 ps-2">
+              <img
+                class="avatar rounded-circle border border-primary"
+                src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg"
+                alt=""
+              />
+            </div>
+            <div class="w-75 px-3">
+              <div class="text-uppercase text-lightblue fw-bold">
+                nguyen van a
+              </div>
+              <div>Member</div>
+            </div>
+            <i class="fa-solid fa-sort-down"></i>
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Your Wislish</a></li>
+            <li><a class="dropdown-item" href="#">Your Requests</a></li>
+            <li><a class="dropdown-item" href="#">Book Borrowing</a></li>
+            <li><a class="dropdown-item" href="#">History</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Your Profile</a></li>
+            <li><a class="dropdown-item" routerLink="/login">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

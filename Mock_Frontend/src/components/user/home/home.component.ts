@@ -1,10 +1,11 @@
+import { UserService } from './../../../service/user-service/user.service';
+import { routes } from './../../../app/app.routes';
 import { GenreService } from './../../../service/genre-service/genre.service';
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ListGenreComponent } from '../list-genre/list-genre.component';
 import { BookService } from '../../../service/book-service/book.service';
-import { error, log } from 'console';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   genreId: number = 0;
   constructor(
     private bookService: BookService,
-    private genreService: GenreService
+    private genreService: GenreService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -68,5 +70,9 @@ export class HomeComponent implements OnInit {
         this.bookList = [];
       },
     });
+  }
+
+  bookDetails(book: any) {
+    this.router.navigate(['/book-details'], { queryParams: book });
   }
 }

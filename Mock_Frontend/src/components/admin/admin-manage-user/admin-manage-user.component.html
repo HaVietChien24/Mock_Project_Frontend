@@ -1,0 +1,106 @@
+<div class="container-fluid d-flex bg-light p-0">
+    <div class="sidebar">
+        <app-admin-side-bar></app-admin-side-bar>
+    </div>
+    <div class="main-content ms-4">
+        <h2 class="mb-4">Manage User</h2>
+
+        <!-- Button to trigger modal for adding new user -->
+        <!-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            Add User
+        </button> -->
+
+        <!-- Table for displaying user information -->
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>UserName</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let listUsers of listUser; let i = index">
+                    <td>{{ listUsers.id }}</td>
+                    <td>{{ listUsers.firstName }}</td>
+                    <td>{{ listUsers.lastName }}</td>
+                    <td>{{ listUsers.email }}</td>
+                    <td>{{ listUsers.phone }}</td>
+                    <td>{{ listUsers.username }}</td>
+
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" [checked]="listUsers.isActive"
+                                (change)="toggleBanAccount(listUsers.id, $event)" />
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+
+
+                </tr>
+                <!-- Thêm các dòng thông tin user khác -->
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal for adding new user -->
+    <!-- <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Tên User</label>
+                            <input type="text" class="form-control" id="userName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userPhone" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="userPhone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Modal for editing user -->
+    <!-- <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Chỉnh sửa User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="editUserName" class="form-label">Tên User</label>
+                            <input type="text" class="form-control" id="editUserName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editUserEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUserPhone" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="editUserPhone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>

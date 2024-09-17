@@ -22,7 +22,7 @@
       </ul>
 
       <form
-        [hidden]="isShow"
+        *ngIf="isShow"
         #formSearch="ngForm"
         (ngSubmit)="onSubmit(formSearch)"
         class="d-flex header-search"
@@ -55,16 +55,20 @@
           >
             <div class="w-25 ps-2">
               <img
-                class="avatar rounded-circle border border-primary"
-                src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg"
+                class="avatar rounded-circle border border-white"
+                src="{{
+                  userInfo.imageURL
+                    ? userInfo.imageURL
+                    : 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
+                }}"
                 alt=""
               />
             </div>
             <div class="w-75 px-3">
               <div class="text-uppercase text-lightblue fw-bold">
-                nguyen van a
+                {{ userInfo?.firstName }} {{ userInfo?.lastName }}
               </div>
-              <div>Member</div>
+              <div class="small">Member</div>
             </div>
             <i class="fa-solid fa-sort-down"></i>
           </div>

@@ -1,3 +1,4 @@
+import { UserService } from './../../../service/user-service/user.service';
 import { routes } from './../../../app/app.routes';
 import { GenreService } from './../../../service/genre-service/genre.service';
 import { Component, OnInit } from '@angular/core';

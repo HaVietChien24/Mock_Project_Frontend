@@ -14,7 +14,6 @@ export class BookDetailsComponent {
   data: any = null;
   constructor(private route: ActivatedRoute) {}
   ngOnInit() {
-    // Truy cập dữ liệu từ queryParams
     this.route.queryParams.subscribe((params) => {
       this.data = params;
       console.log(this.data);

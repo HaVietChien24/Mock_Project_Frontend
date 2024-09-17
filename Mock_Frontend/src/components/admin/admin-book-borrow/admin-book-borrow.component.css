@@ -1,0 +1,66 @@
+.sidebar {
+  width: 20%;
+  min-height: 100vh;
+}
+
+.main-content {
+  width: 80%;
+}
+
+/* Table container styling */
+.custom-table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+/* Header row */
+.header-row {
+  background-color: black;
+  color: white;
+}
+
+/* Table header cells */
+.header-cell {
+  font-weight: bold;
+  color: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Table data cells */
+.cell {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+/* Hover effect on rows */
+.data-row:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Button styling */
+.btn-custom {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #1976d2;
+}
+
+/* Elevation and shadow effect */
+.mat-elevation-z8 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

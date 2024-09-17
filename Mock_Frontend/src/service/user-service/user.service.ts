@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { JwtService } from '../jwt-service/jwt.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient, private jwtService: JwtService) {}
@@ -30,9 +30,14 @@ export class UserService {
   }
 
   loadUserFromStorage(): any {
-    var token = localStorage.getItem('userToken')?.toString();
-    if (token) {
-      return this.jwtService.decodeToken(token);
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.localStorage !== 'undefined'
+    ) {
+      var token = window.localStorage.getItem('userToken')?.toString();
+      if (token) {
+        return this.jwtService.decodeToken(token);
+      }
     }
     return null;
   }

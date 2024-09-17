@@ -34,9 +34,14 @@ export class UserService {
   }
 
   loadUserFromStorage(): any {
-    var token = localStorage.getItem('userToken')?.toString();
-    if (token) {
-      return this.jwtService.decodeToken(token);
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.localStorage !== 'undefined'
+    ) {
+      var token = window.localStorage.getItem('userToken')?.toString();
+      if (token) {
+        return this.jwtService.decodeToken(token);
+      }
     }
     return null;
   }

@@ -4,9 +4,11 @@
     <div class="h2">Your Wishlist</div>
     <hr />
 
-    <div>
+    <div
+      *ngIf="wishlist && wishlist.wishListDetails.length != 0; else elseBlock"
+    >
       <form class="d-flex">
-        <div class="w-50 ps-5">
+        <div class="w-50 ps-5 align-content-center">
           <button
             class="btn text-white bg-lightblue border-0 py-2 px-5 rounded-4"
           >
@@ -23,9 +25,6 @@
               id="pick-up-date"
               class="form-control w-75 rounded-3 px-3"
               name="pick-up-date"
-              value="2024-09-16"
-              min="2018-01-01"
-              max="2024-09-17"
             />
           </div>
 
@@ -38,54 +37,42 @@
               id="return-date"
               class="form-control w-75 rounded-3 px-3"
               name="return-date"
-              value="2024-09-16"
-              min="2018-01-01"
-              max="2024-09-17"
             />
           </div>
         </div>
       </form>
     </div>
-
+    <ng-template #elseBlock>
+      <div class="fst-italic text-center">
+        You have not added books to your wishlist
+      </div>
+    </ng-template>
     <hr />
-    <div class="p-3">
+    <div *ngIf="wishlist && wishlist.wishListDetails.length != 0" class="p-3">
+      @for (item of wishlist.wishListDetails; track $index) {
       <div class="py-2 px-3 border-1 rounded-4 bg-light shadow-sm my-3">
         <div class="rounded-3 d-flex justify-content-between">
-          <div class="h5 my-auto">Book Title 1</div>
+          <div class="h5 my-auto">{{ item.bookTitle }}</div>
           <div class="d-flex justify-content-end">
             <span class="my-auto">x</span>
             <input
               class="my-auto mx-2 w-25 form-control"
               type="number"
-              value="1"
+              value="{{ item.quantity }}"
             />
             <img
               class="rounded-4 my-auto book-image"
-              src="https://media.newyorker.com/photos/59ee325f1685003c9c28c4ad/4:3/w_4992,h_3744,c_limit/Heller-Kirkus-Reviews.jpg"
+              src="{{
+                item.imageUrl
+                  ? item.imageUrl
+                  : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
+              }}"
               alt=""
             />
           </div>
         </div>
       </div>
-
-      <div class="py-2 px-3 border-1 rounded-4 bg-light shadow-sm my-3">
-        <div class="rounded-3 d-flex justify-content-between">
-          <div class="h5 my-auto">Book Title 1</div>
-          <div class="d-flex justify-content-end">
-            <span class="my-auto">x</span>
-            <input
-              class="my-auto mx-2 w-25 form-control"
-              type="number"
-              value="1"
-            />
-            <img
-              class="rounded-4 my-auto book-image"
-              src="https://media.newyorker.com/photos/59ee325f1685003c9c28c4ad/4:3/w_4992,h_3744,c_limit/Heller-Kirkus-Reviews.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
+      }
     </div>
   </div>
 </div>

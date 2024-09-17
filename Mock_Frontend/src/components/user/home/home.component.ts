@@ -1,3 +1,4 @@
+import { WishlistService } from './../../../service/wishlist-service/wishlist.service';
 import { UserService } from './../../../service/user-service/user.service';
 import { routes } from './../../../app/app.routes';
 import { GenreService } from './../../../service/genre-service/genre.service';
@@ -7,6 +8,9 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ListGenreComponent } from '../list-genre/list-genre.component';
 import { BookService } from '../../../service/book-service/book.service';
 import { CommonModule } from '@angular/common';
+import { userInfo } from 'node:os';
+import { response } from 'express';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-home',
@@ -20,10 +24,14 @@ export class HomeComponent implements OnInit {
   genreList: any = [];
   title: string = 'All Books';
   genreId: number = 0;
+  userInfo: any;
+
   constructor(
     private bookService: BookService,
     private genreService: GenreService,
-    private router: Router
+    private router: Router,
+    private wishlistService: WishlistService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +52,8 @@ export class HomeComponent implements OnInit {
         this.genreList = [];
       },
     });
+
+    this.userInfo = this.userService.loadUserFromStorage();
   }
 
   getBooksByGenre(genre: any) {
@@ -74,5 +84,17 @@ export class HomeComponent implements OnInit {
 
   bookDetails(book: any) {
     this.router.navigate(['/book-details'], { queryParams: book });
+  }
+
+  addToWishlist(bookId: number) {
+    this.wishlistService.addToWishlist(this.userInfo.id, bookId).subscribe({
+      next: (response) => {
+        alert('Add Succesfully');
+      },
+      error: (error) => {
+        alert('Add Fail');
+        console.log(error);
+      },
+    });
   }
 }

@@ -62,6 +62,7 @@ export class RegisterComponent {
     this.isLoading = true;
     this.registerForm.disable();
     this.resetErrorMessage();
+
     this.userService.register(this.registerForm.value).subscribe({
       next: () => {
         this.router.navigate(['/login']);

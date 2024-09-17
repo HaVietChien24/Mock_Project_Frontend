@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthResponse, LoginDTO, RegisterDTO } from '../../models/UserModels';
+import { JwtService } from '../jwt-service/jwt.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { AuthResponse, LoginDTO, RegisterDTO } from '../../models/UserModels';
 export class UserService {
   loginHttp: string = 'http://localhost:5110/api/User/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private jwtService: JwtService) {}
 
   private getUserUrl = 'http://localhost:5110/api/User/GetAllUser';
   private BanAcountUrl = 'http://localhost:5110/api/User/BanAccount';
@@ -30,5 +31,13 @@ export class UserService {
 
   register(body: RegisterDTO): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.loginHttp + 'register', body);
+  }
+
+  loadUserFromStorage(): any {
+    var token = localStorage.getItem('userToken')?.toString();
+    if (token) {
+      return this.jwtService.decodeToken(token);
+    }
+    return null;
   }
 }

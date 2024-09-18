@@ -127,7 +127,7 @@ export class AdminManageBooksComponent implements OnInit {
 
     this.bookupdate.genres = this.selectedGenres;
     delete this.bookupdate.genreNames;
-   
+
     console.log("Before sending to API:", this.bookupdate);
 
     this.bookService.updateBook(this.bookupdate).subscribe({

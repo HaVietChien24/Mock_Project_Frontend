@@ -1,0 +1,58 @@
+<app-header [isShow]="false"></app-header>
+<div class="container-fluid p-0">
+  <div class="container d-flex p-5 justify-content-between">
+    <div class="w-40 my-auto">
+      <img
+        class="rounded-4 img-fluid vh-50 fit-cover"
+        src="{{
+          data.imageUrl
+            ? data.imageUrl
+            : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
+        }}"
+        alt=""
+      />
+    </div>
+    <div class="w-55 ps-5">
+      <div class="h3">{{ data.title }}</div>
+      <div *ngIf="data.genreNames.length != 0" class="d-flex">
+        @for (item of data.genreNames; track $index) {
+        <div class="bg-light rounded-2 p-2 m-1">{{ item }}</div>
+        }
+      </div>
+      <hr />
+      <div class="d-flex">
+        <div class="w-25">
+          <div class="fw-bold my-3">Author</div>
+          <div class="fw-bold my-3">Publisher</div>
+          <div class="fw-bold my-3">PublishedYear</div>
+        </div>
+        <div class="w-75">
+          <div class="my-3">{{ data.author }}</div>
+          <div class="my-3">{{ data.publisher }}</div>
+          <div class="my-3">{{ data.publishedYear }}</div>
+        </div>
+      </div>
+      <div class="fw-bold mb-3">Description</div>
+      <div class="my-2">{{ data.description }}</div>
+      <hr />
+      <div
+        *ngIf="data.amount > 0; else elseBlock"
+        class="text-end small fst-italic"
+      >
+        Available: {{ data.amount }}
+      </div>
+      <ng-template #elseBlock>
+        <div class="text-end small fst-italic text-warning">
+          Temporarily unavailable
+        </div>
+      </ng-template>
+      <button
+        [disabled]="data.amount == 0"
+        (click)="addToWishlist(data.id)"
+        class="btn bg-lightblue rounded-4 text-white px-5 py-2"
+      >
+        Add To Wishlist
+      </button>
+    </div>
+  </div>
+</div>

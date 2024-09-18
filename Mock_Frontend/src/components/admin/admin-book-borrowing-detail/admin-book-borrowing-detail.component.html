@@ -1,0 +1,112 @@
+<div class="container-fluid d-flex bg-light p-0">
+  <div class="sidebar">
+    <app-admin-side-bar></app-admin-side-bar>
+  </div>
+  <div class="main-content ms-4">
+    <h3>Borrowing Details</h3>
+
+    <!-- Kiểm tra nếu có dữ liệu để hiển thị bảng -->
+    <table
+      *ngIf="data && data.length"
+      class="table table-bordered table-striped mt-3"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th>Book Name</th>
+          <th>Quantity</th>
+          <th>Actual Return Date</th>
+          <th>Number Of Books Returned</th>
+          <th>Penalty</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{ item.bookName }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.actualReturnDate | customdate }}</td>
+          <td>{{ item.numberReturnedBook }}</td>
+          <td>{{ item.penalty }}</td>
+          <td>{{ item.status }}</td>
+          <td>
+            <!-- Nút mở modal -->
+            <button
+              class="btn btn-primary"
+              (click)="openModal(item)"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+            >
+              Update
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal Bootstrap -->
+    <div
+      class="modal fade"
+      id="updateModal"
+      tabindex="-1"
+      aria-labelledby="updateModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel">
+              Update Returned Books
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="updateReturnedBooks(selectedItem.id)">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookName"
+                  [value]="selectedItem?.id"
+                  readonly
+                  hidden="true"
+                />
+                <label for="bookName" class="form-label">Book Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookName"
+                  [value]="selectedItem?.bookName"
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label for="numberReturned" class="form-label"
+                  >Number of Books Returned</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="numberReturned"
+                  name="numberReturnedBook"
+                  [(ngModel)]="numberReturnedBook"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-success">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!data || !data.length" class="alert alert-warning mt-3">
+      No borrowing details available.
+    </div>
+  </div>
+</div>

@@ -1,53 +1,54 @@
 <div class="container-fluid d-flex bg-light p-0">
-    <div class="sidebar">
-        <app-admin-side-bar></app-admin-side-bar>
-    </div>
-    <div class="main-content ms-4">
-        <h2 class="mb-4">Manage User</h2>
+  <div class="sidebar">
+    <app-admin-side-bar></app-admin-side-bar>
+  </div>
+  <div class="main-content ms-4">
+    <h2 class="mb-4">Manage User</h2>
 
-        <!-- Button to trigger modal for adding new user -->
-        <!-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
+    <!-- Button to trigger modal for adding new user -->
+    <!-- <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
             Add User
         </button> -->
 
-        <!-- Table for displaying user information -->
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>UserName</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let listUsers of listUser; let i = index">
-                    <td>{{ listUsers.id }}</td>
-                    <td>{{ listUsers.firstName }}</td>
-                    <td>{{ listUsers.lastName }}</td>
-                    <td>{{ listUsers.email }}</td>
-                    <td>{{ listUsers.phone }}</td>
-                    <td>{{ listUsers.username }}</td>
+    <!-- Table for displaying user information -->
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>FirstName</th>
+          <th>LastName</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>UserName</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let listUsers of listUser; let i = index">
+          <td>{{ listUsers.id }}</td>
+          <td>{{ listUsers.firstName }}</td>
+          <td>{{ listUsers.lastName }}</td>
+          <td>{{ listUsers.email }}</td>
+          <td>{{ listUsers.phone }}</td>
+          <td>{{ listUsers.username }}</td>
 
-                    <td>
-                        <label class="toggle-switch">
-                            <input type="checkbox" [checked]="listUsers.isActive"
-                                (change)="toggleBanAccount(listUsers.id, $event)" />
-                            <span class="slider"></span>
-                        </label>
-                    </td>
-
-
-                </tr>
-                <!-- Thêm các dòng thông tin user khác -->
-            </tbody>
-        </table>
-    </div>
-    <!-- Modal for adding new user -->
-    <!-- <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+          <td>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                [checked]="listUsers.isActive"
+                (change)="toggleBanAccount(listUsers.id, $event)"
+              />
+              <span class="slider"></span>
+            </label>
+          </td>
+        </tr>
+        <!-- Thêm các dòng thông tin user khác -->
+      </tbody>
+    </table>
+  </div>
+  <!-- Modal for adding new user -->
+  <!-- <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -75,8 +76,8 @@
         </div>
     </div> -->
 
-    <!-- Modal for editing user -->
-    <!-- <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <!-- Modal for editing user -->
+  <!-- <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

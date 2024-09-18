@@ -1,0 +1,9 @@
+.bg-lightblue {
+  background-color: #00aae8;
+}
+
+.book-image {
+  width: 70px;
+  height: 80px;
+  object-fit: cover;
+}

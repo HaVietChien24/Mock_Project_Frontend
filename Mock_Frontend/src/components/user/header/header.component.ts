@@ -1,4 +1,4 @@
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userInfo = this.userService.loadUserFromStorage();
     console.log(this.userInfo);
+  }
+
+  logout() {
+    this.userService.logout();
   }
 
   onSubmit(form: NgForm) {

@@ -1,9 +1,7 @@
-import { UserService } from './../../../service/user-service/user.service';
-import { routes } from './../../../app/app.routes';
 import { GenreService } from './../../../service/genre-service/genre.service';
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ListGenreComponent } from '../list-genre/list-genre.component';
 import { BookService } from '../../../service/book-service/book.service';
 import { CommonModule } from '@angular/common';
@@ -20,6 +18,7 @@ export class HomeComponent implements OnInit {
   genreList: any = [];
   title: string = 'All Books';
   genreId: number = 0;
+
   constructor(
     private bookService: BookService,
     private genreService: GenreService,

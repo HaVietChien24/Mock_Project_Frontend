@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthResponse, LoginDTO, RegisterDTO } from '../../models/UserModels';
+import {
+  AuthResponse,
+  LoginDTO,
+  RegisterDTO,
+  UserProfileDTO,
+} from '../../models/UserModels';
 import { JwtService } from '../jwt-service/jwt.service';
 
 @Injectable({
@@ -31,6 +36,10 @@ export class UserService {
 
   register(body: RegisterDTO): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.loginHttp + 'register', body);
+  }
+
+  updateProfile(body: UserProfileDTO): Observable<AuthResponse> {
+    return this.http.put<AuthResponse>(this.loginHttp + 'updateProfile', body);
   }
 
   loadUserFromStorage(): any {

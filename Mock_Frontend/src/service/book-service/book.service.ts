@@ -8,7 +8,7 @@ import { ApiLink } from '../../api/link-api';
 })
 export class BookService {
   linkApi: ApiLink = new ApiLink();
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
     return this.http.get<any>(this.linkApi.getAllBooks);
@@ -22,5 +22,13 @@ export class BookService {
     return this.http.get<any>(this.linkApi.searchByTitleOrAuthor, {
       params: { search: search },
     });
+  }
+  // Phương thức để thêm sách
+  addBook(book: any): Observable<any> {
+    return this.http.post<any>(this.linkApi.addBook, book);
+  }
+
+  updateBook(book: any): Observable<any> {
+    return this.http.post<any>(this.linkApi.updateBook, book);
   }
 }

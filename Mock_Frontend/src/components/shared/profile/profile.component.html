@@ -1,0 +1,136 @@
+<app-header [isShow]="false"></app-header>
+
+<div class="outer-container">
+  <form class="profile-form" [formGroup]="profileForm" (submit)="onSubmit()">
+    <h1 class="fw-bold">Your Profile</h1>
+
+    <div class="w-100 name-row my-2">
+      <div>
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="First Name"
+          formControlName="firstName"
+        />
+
+        @if(getInput('firstName')?.hasError('required')&&
+        getInput('firstName')?.touched) {
+        <p class="text-danger">First name is required</p>
+        }
+      </div>
+
+      <div>
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="Last Name"
+          formControlName="lastName"
+        />
+
+        @if(getInput('lastName')?.hasError('required')&&
+        getInput('lastName')?.touched) {
+        <p class="text-danger">Last name is required</p>
+        }
+      </div>
+    </div>
+
+    <div class="w-100 my-2">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Username"
+        formControlName="username"
+      />
+    </div>
+
+    <div class="w-100 my-2">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+
+      @if(getInput('email')?.hasError('email')&& getInput('email')?.touched) {
+      <p class="text-danger">Invalid email</p>
+      }
+    </div>
+
+    <div class="w-100 my-2">
+      <label for="phone">Phone Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phone"
+        placeholder="Phone Number"
+        formControlName="phone"
+      />
+
+      @if(getInput('phone')?.hasError('pattern')&& getInput('phone')?.touched) {
+      <p class="text-danger">Invalid phone number</p>
+      }
+    </div>
+
+    <div class="w-100 my-2">
+      <label for="imageURL">Avatar Image URL</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imageURL"
+        placeholder="Avatar Image URL"
+        formControlName="imageURL"
+      />
+    </div>
+
+    <div class="my-3 w-100">
+      <img
+        src="{{
+          currentUser?.imageURL
+            ? currentUser?.imageURL
+            : 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
+        }}"
+        class="avatar"
+      />
+    </div>
+
+    <div class="w-100">
+      @if (updateMode) {
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="profileForm.invalid || isLoading"
+      >
+        Confirm Update
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary mx-2"
+        (click)="toggleUpdateMode()"
+      >
+        Cancel
+      </button>
+      } @else {
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="toggleUpdateMode()"
+      >
+        Update Profile
+      </button>
+
+      <button type="button" class="btn btn-warning mx-2">
+        Change Password
+      </button>
+      }
+    </div>
+  </form>
+</div>

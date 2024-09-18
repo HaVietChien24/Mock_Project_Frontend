@@ -1,0 +1,23 @@
+.sidebar {
+    width: 20%;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    width: 80%;
+  }
+
+  /* Ẩn dropdown khi không mở */
+.dropdown-menu {
+    display: none;
+    max-height: 200px; 
+    overflow-y: auto; 
+    width: 100%; 
+    padding: 10px;
+  }
+  
+  /* Hiển thị dropdown khi được kích hoạt */
+  .dropdown-menu.show {
+    display: block;
+  }
+  

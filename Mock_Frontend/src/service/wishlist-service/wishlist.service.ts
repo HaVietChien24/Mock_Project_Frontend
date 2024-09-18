@@ -18,7 +18,12 @@ export class WishlistService {
   }
 
   addToWishlist(userId: number, bookId: number): Observable<any> {
-    const body = { userId: +userId, bookId: bookId };
+    const body = { UserId: +userId, BookId: bookId };
     return this.http.post<any>(this.linkApi.addBookToWishlist, body);
+  }
+
+  updateDetailsQuantity(detailsId: number, quantity: number): Observable<any> {
+    const body = { DetailsId: detailsId, Quantity: quantity };
+    return this.http.put<any>(this.linkApi.updateWishlistDetailQuantity, body);
   }
 }

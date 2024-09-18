@@ -1,0 +1,71 @@
+<app-header [isShow]="false"></app-header>
+<div class="container-fluid p-0">
+  <div class="container p-5 justify-content-between">
+    <div class="h2">Your Requests</div>
+    <hr />
+    <div class="py-3 px-5">
+      @for (request of requestList; track $index) {
+      <div class="my-3 rounded-4 shadow border-0 py-3 px-5 bg-light">
+        <div class="text-end text-warning mb-3 small fw-bold">
+          Request At: {{ request.requestDate | date : "dd/mm/yyyy hh:mm" }}
+        </div>
+
+        @for (details of request.requestDetails; track $index) {
+        <div class="d-flex justify-content-between">
+          <div class="align-content-center fw-bold">
+            {{ details.bookTitle }}
+          </div>
+          <div class="d-flex">
+            <div class="align-content-center me-3">
+              x {{ details.quantity }}
+            </div>
+            <div>
+              <img
+                class="img-fluid rounded-4 book-image"
+                src="{{
+                  details.imageUrl
+                    ? details.imageUrl
+                    : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
+                }}"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <hr />
+        }
+
+        <div class="text-end small fst-italic mb-1">
+          Total books: {{ request.totalQuantity }}
+        </div>
+        <div>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between text-muted small w-25">
+              <div>
+                <div>Expected Pick-up Date</div>
+                <div>Expected Return Date</div>
+              </div>
+              <div>
+                <div>
+                  {{ request.expectedPickUpDate | date : "dd/MM/yyyy" }}
+                </div>
+                <div>
+                  {{ request.expectedReturnDate | date : "dd/MM/yyyy" }}
+                </div>
+              </div>
+            </div>
+            <div class="align-content-center">
+              <button
+                (click)="cancelRequest(request.id)"
+                class="btn btn-outline-warning px-4"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

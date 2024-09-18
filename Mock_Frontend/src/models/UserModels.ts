@@ -17,3 +17,12 @@ export interface RegisterDTO {
   password: string;
   confirmPassword: string;
 }
+
+export interface UserProfileDTO {
+  email: string;
+  firstName: string;
+  lastName: string;
+  imageURL: string;
+  phone: string;
+  username: string;
+}

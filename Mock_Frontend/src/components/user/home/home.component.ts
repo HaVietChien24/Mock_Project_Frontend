@@ -1,16 +1,12 @@
 import { WishlistService } from './../../../service/wishlist-service/wishlist.service';
 import { UserService } from './../../../service/user-service/user.service';
-import { routes } from './../../../app/app.routes';
 import { GenreService } from './../../../service/genre-service/genre.service';
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ListGenreComponent } from '../list-genre/list-genre.component';
 import { BookService } from '../../../service/book-service/book.service';
 import { CommonModule } from '@angular/common';
-import { userInfo } from 'node:os';
-import { response } from 'express';
-import { error } from 'node:console';
 
 @Component({
   selector: 'app-home',

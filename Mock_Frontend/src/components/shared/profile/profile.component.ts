@@ -11,8 +11,9 @@ import { UserService } from '../../../service/user-service/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
-import { AuthResponse, UserProfileDTO } from '../../../models/UserModels';
+import { AuthResponse } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     CommonModule,
     RouterLink,
     SpinnerComponent,
+    ChangePasswordComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
@@ -31,7 +33,7 @@ export class ProfileComponent {
   profileForm: FormGroup;
   updateMode: boolean = false;
   isLoading: boolean = false;
-  currentUser: UserProfileDTO | null = null;
+  currentUser: any = null;
   errorMessage: string | null = null;
 
   constructor(
@@ -72,6 +74,10 @@ export class ProfileComponent {
     return this.profileForm.get(inputName);
   }
 
+  resetErrorMessage() {
+    this.errorMessage = null;
+  }
+
   toggleUpdateMode() {
     this.updateMode = !this.updateMode;
     if (!this.updateMode) {
@@ -100,6 +106,7 @@ export class ProfileComponent {
         this.updateMode = false;
 
         localStorage.setItem('userToken', res.token);
+        window.location.href = '/profile';
       },
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error.message;

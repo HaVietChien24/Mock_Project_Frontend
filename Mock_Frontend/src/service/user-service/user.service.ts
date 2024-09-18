@@ -1,8 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpHandler,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   AuthResponse,
+  ChangePasswordDTO,
   LoginDTO,
   RegisterDTO,
   UserProfileDTO,
@@ -13,33 +19,45 @@ import { JwtService } from '../jwt-service/jwt.service';
   providedIn: 'root',
 })
 export class UserService {
-  loginHttp: string = 'http://localhost:5110/api/User/';
+  userRootHttp: string = 'http://localhost:5110/api/User/';
 
   constructor(private http: HttpClient, private jwtService: JwtService) {}
 
-  private getUserUrl = 'http://localhost:5110/api/User/GetAllUser';
-  private BanAcountUrl = 'http://localhost:5110/api/User/BanAccount';
-
   getAllUser(): Observable<any> {
-    return this.http.get<any>(this.getUserUrl);
+    return this.http.get<any>(this.userRootHttp + 'GetAllUser');
   }
 
   // Cập nhật phương thức banAccount để nhận tham số isActive
   banAccount(userId: number): Observable<any> {
     // Gửi yêu cầu PUT tới API với isActive
-    return this.http.put(`${this.BanAcountUrl}/${userId}`, {});
+    return this.http.put(`${this.userRootHttp}/BanAccount/${userId}`, {});
   }
 
   login(body: LoginDTO): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.loginHttp + 'login', body);
+    return this.http.post<AuthResponse>(this.userRootHttp + 'login', body);
   }
 
   register(body: RegisterDTO): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.loginHttp + 'register', body);
+    return this.http.post<AuthResponse>(this.userRootHttp + 'register', body);
   }
 
   updateProfile(body: UserProfileDTO): Observable<AuthResponse> {
-    return this.http.put<AuthResponse>(this.loginHttp + 'updateProfile', body);
+    return this.http.put<AuthResponse>(
+      this.userRootHttp + 'updateProfile',
+      body
+    );
+  }
+
+  changePassword(body: ChangePasswordDTO): Observable<AuthResponse> {
+    return this.http.put<AuthResponse>(
+      this.userRootHttp + 'changePassword',
+      body
+    );
+  }
+
+  logout() {
+    window.localStorage.removeItem('userToken');
+    window.location.href = '/login';
   }
 
   loadUserFromStorage(): any {

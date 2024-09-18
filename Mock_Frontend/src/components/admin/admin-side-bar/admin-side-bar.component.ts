@@ -9,4 +9,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './admin-side-bar.component.html',
   styleUrl: './admin-side-bar.component.css',
 })
-export class AdminSideBarComponent { }
+export class AdminSideBarComponent {
+
+}

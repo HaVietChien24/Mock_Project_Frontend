@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'admin/dashboard', component: DashboardComponent },
   { path: 'admin/book-borrow', component: AdminBookBorrowComponent },
-  { path: 'admin/book-borrow-detail/:borrowingId', component: AdminBookBorrowingDetailComponent }
+  { path: 'admin/book-borrow-detail/:borrowingId', component: AdminBookBorrowingDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin/ManageUser', component: AdminManageUserComponent }
 ];

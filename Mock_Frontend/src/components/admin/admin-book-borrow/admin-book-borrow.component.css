@@ -7,20 +7,20 @@
   width: 80%;
 }
 
-/* Table container styling */
+
 .custom-table {
   width: 100%;
   margin: 20px 0;
   border-collapse: collapse;
 }
 
-/* Header row */
+
 .header-row {
   background-color: black;
   color: white;
 }
 
-/* Table header cells */
+
 .header-cell {
   font-weight: bold;
   color: white;
@@ -30,7 +30,7 @@
   border-bottom: 1px solid #ccc;
 }
 
-/* Table data cells */
+
 .cell {
   text-align: left;
   padding: 10px;
@@ -38,13 +38,13 @@
   font-size: 14px;
 }
 
-/* Hover effect on rows */
+
 .data-row:hover {
   background-color: #f9f9f9;
   cursor: pointer;
 }
 
-/* Button styling */
+
 .btn-custom {
   background-color: #2196f3;
   color: white;
@@ -60,7 +60,7 @@
   background-color: #1976d2;
 }
 
-/* Elevation and shadow effect */
+
 .mat-elevation-z8 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

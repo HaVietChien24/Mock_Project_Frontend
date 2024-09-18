@@ -16,7 +16,6 @@
           <th>Quantity</th>
           <th>Actual Return Date</th>
           <th>Number Of Books Returned</th>
-          <th>Penalty</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
@@ -27,7 +26,6 @@
           <td>{{ item.quantity }}</td>
           <td>{{ item.actualReturnDate | customdate }}</td>
           <td>{{ item.numberReturnedBook }}</td>
-          <td>{{ item.penalty }}</td>
           <td>{{ item.status }}</td>
           <td>
             <!-- Nút mở modal -->
@@ -37,7 +35,7 @@
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
             >
-              Update
+              Return book
             </button>
           </td>
         </tr>
@@ -66,6 +64,11 @@
             ></button>
           </div>
           <div class="modal-body">
+            <!-- Hiển thị thông báo lỗi nếu có -->
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+
             <form (ngSubmit)="updateReturnedBooks(selectedItem.id)">
               <div class="mb-3">
                 <input
@@ -98,13 +101,16 @@
                   required
                 />
               </div>
-              <button type="submit" class="btn btn-success">Update</button>
+              <button type="submit" class="btn btn-success">
+                Returned Book
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Thông báo nếu không có dữ liệu -->
     <div *ngIf="!data || !data.length" class="alert alert-warning mt-3">
       No borrowing details available.
     </div>

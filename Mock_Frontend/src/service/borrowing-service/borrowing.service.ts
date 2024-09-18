@@ -30,4 +30,9 @@ export class BorrowingService {
 
     return this.http.put<any>(url, body);
   }
+  ConfirmPickedUp(id: number): Observable<any> {
+    const url = `${this.apiLink.ConfirmPickedUp}?borrowingId=${id}`;
+    const body = {};
+    return this.http.put<any>(url, body);
+  }
 }

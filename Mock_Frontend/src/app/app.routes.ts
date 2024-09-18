@@ -8,6 +8,7 @@ import { RegisterComponent } from '../components/auth/register/register.componen
 import { AdminManageUserComponent } from '../components/admin/admin-manage-user/admin-manage-user.component';
 import { BookDetailsComponent } from '../components/user/book-details/book-details.component';
 import { WishListComponent } from '../components/user/wish-list/wish-list.component';
+import { RequestsComponent } from '../components/user/requests/requests.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,4 +23,5 @@ export const routes: Routes = [
   { path: 'admin/ManageUser', component: AdminManageUserComponent },
   { path: 'book-details', component: BookDetailsComponent },
   { path: 'wish-list', component: WishListComponent },
+  { path: 'requests', component: RequestsComponent },
 ];

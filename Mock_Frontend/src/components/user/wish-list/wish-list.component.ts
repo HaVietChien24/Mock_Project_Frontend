@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { response } from 'express';
-import { error } from 'console';
 
 @Component({
   selector: 'app-wish-list',
@@ -18,6 +16,7 @@ export class WishListComponent implements OnInit {
   wishlist: any;
   userInfo: any;
   currentDate: number = Date.now();
+  isValidData: boolean = true;
 
   constructor(
     private wishlistService: WishlistService,
@@ -34,5 +33,23 @@ export class WishListComponent implements OnInit {
         error: (error) => {},
       });
     }
+  }
+
+  updateQuantiy(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const detailsId: number = +input.id;
+    const quantity: number = +input.value;
+    if (quantity <= 0) {
+      alert('Quantity must be > 0');
+      this.isValidData = false;
+      return;
+    }
+    this.isValidData = true;
+    this.wishlistService.updateDetailsQuantity(detailsId, quantity).subscribe({
+      next: (response) => {},
+      error: (error) => {
+        alert('Some errors occured');
+      },
+    });
   }
 }

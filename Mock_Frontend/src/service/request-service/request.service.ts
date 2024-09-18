@@ -13,4 +13,8 @@ export class RequestService {
   getAllByUserId(id: number): Observable<any> {
     return this.http.get<any>(`${this.linkApi.getAllRequestsByUserId}/${id}`);
   }
+
+  cancelRequest(requestId: number): Observable<any> {
+    return this.http.put<any>(`${this.linkApi.cancelRequest}`, requestId);
+  }
 }

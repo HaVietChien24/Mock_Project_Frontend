@@ -15,4 +15,6 @@ export class ApiLink {
   getAllRequestsByUserId: string = `${this.base}/Request/get-all-by-user-id`;
   addBook: string = `${this.base}/Book/add-book`;
   updateBook: string = `${this.base}/Book/update-book`;
+  cancelRequest: string = `${this.base}/Request/cancel-request`;
+  updateWishlistDetailQuantity: string = `${this.base}/WishList/update-wishlist-detail-quantity`;
 }

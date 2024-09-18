@@ -14,6 +14,11 @@
           placeholder="First Name"
           formControlName="firstName"
         />
+
+        @if(getInput('firstName')?.hasError('required')&&
+        getInput('firstName')?.touched) {
+        <p class="text-danger">First name is required</p>
+        }
       </div>
 
       <div>
@@ -25,6 +30,11 @@
           placeholder="Last Name"
           formControlName="lastName"
         />
+
+        @if(getInput('lastName')?.hasError('required')&&
+        getInput('lastName')?.touched) {
+        <p class="text-danger">Last name is required</p>
+        }
       </div>
     </div>
 
@@ -48,6 +58,10 @@
         placeholder="Email"
         formControlName="email"
       />
+
+      @if(getInput('email')?.hasError('email')&& getInput('email')?.touched) {
+      <p class="text-danger">Invalid email</p>
+      }
     </div>
 
     <div class="w-100 my-2">
@@ -59,6 +73,10 @@
         placeholder="Phone Number"
         formControlName="phone"
       />
+
+      @if(getInput('phone')?.hasError('pattern')&& getInput('phone')?.touched) {
+      <p class="text-danger">Invalid phone number</p>
+      }
     </div>
 
     <div class="w-100 my-2">

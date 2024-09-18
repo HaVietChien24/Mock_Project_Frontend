@@ -55,7 +55,12 @@
               </div>
             </div>
             <div class="align-content-center">
-              <button class="btn btn-outline-warning px-4">Cancel</button>
+              <button
+                (click)="cancelRequest(request.id)"
+                class="btn btn-outline-warning px-4"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { UserService } from '../../../service/user-service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-requests',
@@ -17,12 +18,16 @@ export class RequestsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.userInfo = this.userService.loadUserFromStorage();
+    this.getData();
+  }
 
+  getData(): void {
     this.requestService.getAllByUserId(this.userInfo.id).subscribe({
       next: (response) => {
         this.requestList = response;
@@ -30,6 +35,18 @@ export class RequestsComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+      },
+    });
+  }
+
+  cancelRequest(requestId: number): any {
+    this.requestService.cancelRequest(requestId).subscribe({
+      next: (response) => {
+        alert('Cancel Request Succesfully');
+        // reload trang
+      },
+      error: (error) => {
+        alert('Cancel Request Fail');
       },
     });
   }

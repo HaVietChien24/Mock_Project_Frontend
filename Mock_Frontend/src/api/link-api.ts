@@ -4,6 +4,7 @@ export class ApiLink {
   public GetBookBorrowingDetail: string = "http://localhost:5110/api/Borrowing/GetBorrowingDetail"
   public UpdateBookReturned: string = "http://localhost:5110/api/Borrowing/UpdateReturnedBook"
   public ConfirmPickedUp: string = "http://localhost:5110/api/Borrowing/ConfirmPickedUp"
+  public ViewListBookBorrowingUser: string = "http://localhost:5110/api/Borrowing/ViewListBookBorrowingUser"
 
   base: string = 'http://localhost:5110/api';
   getAllBooks: string = `${this.base}/Book/get-all-books`;
@@ -17,4 +18,5 @@ export class ApiLink {
   updateBook: string = `${this.base}/Book/update-book`;
   cancelRequest: string = `${this.base}/Request/cancel-request`;
   updateWishlistDetailQuantity: string = `${this.base}/WishList/update-wishlist-detail-quantity`;
+  sendRequest: string = `${this.base}/Request/send-request`;
 }

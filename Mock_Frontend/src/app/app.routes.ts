@@ -11,17 +11,24 @@ import { WishListComponent } from '../components/user/wish-list/wish-list.compon
 import { ProfileComponent } from '../components/shared/profile/profile.component';
 import { RequestsComponent } from '../components/user/requests/requests.component';
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
+import { UserBookBorrowComponent } from '../components/user/user-book-borrow/user-book-borrow.component';
 import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'admin/dashboard', component: DashboardComponent },
   { path: 'admin/book-borrow', component: AdminBookBorrowComponent },
-  { path: 'admin/book-borrow-detail/:borrowingId', component: AdminBookBorrowingDetailComponent },
   {
     path: 'admin/book-borrow-detail/:borrowingId',
     component: AdminBookBorrowingDetailComponent,
+  },
+  {
+    path: 'admin/book-borrow-detail/:borrowingId',
+    component: AdminBookBorrowingDetailComponent,
+  },
+  {
+    path: 'user/user-book-borrow',
+    component: UserBookBorrowComponent,
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -31,6 +38,9 @@ export const routes: Routes = [
   { path: 'wish-list', component: WishListComponent },
   { path: 'requests', component: RequestsComponent },
   { path: 'admin/ManageUser', component: AdminManageUserComponent },
+  { path: 'admin/ManageBook', component: AdminManageBooksComponent },
+  { path: '', component: HomeComponent },
+  { path: '**', redirectTo: '/' },
   { path: 'admin/ManageBook', component: AdminManageBooksComponent },
   { path: 'admin/ManageRequest', component: AdminManageRequestComponent }
 

@@ -14,6 +14,7 @@ import {
   UserProfileDTO,
 } from '../../models/UserModels';
 import { JwtService } from '../jwt-service/jwt.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,11 @@ import { JwtService } from '../jwt-service/jwt.service';
 export class UserService {
   userRootHttp: string = 'http://localhost:5110/api/User/';
 
-  constructor(private http: HttpClient, private jwtService: JwtService) {}
+  constructor(
+    private http: HttpClient,
+    private jwtService: JwtService,
+    private router: Router
+  ) {}
 
   getAllUser(): Observable<any> {
     return this.http.get<any>(this.userRootHttp + 'GetAllUser');
@@ -57,7 +62,7 @@ export class UserService {
 
   logout() {
     window.localStorage.removeItem('userToken');
-    window.location.href = '/login';
+    this.router.navigate(['/login']);
   }
 
   loadUserFromStorage(): any {

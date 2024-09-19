@@ -4,10 +4,6 @@
   <form class="profile-form" [formGroup]="profileForm" (submit)="onSubmit()">
     <h1 class="fw-bold">Your Profile</h1>
 
-    <div class="alert alert-danger w-100 danger-box mt-2" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
-
     <div class="w-100 name-row my-2">
       <div>
         <label for="firstName">First Name</label>
@@ -17,7 +13,6 @@
           id="firstName"
           placeholder="First Name"
           formControlName="firstName"
-          (focus)="resetErrorMessage()"
         />
 
         @if(getInput('firstName')?.hasError('required')&&
@@ -34,7 +29,6 @@
           id="lastName"
           placeholder="Last Name"
           formControlName="lastName"
-          (focus)="resetErrorMessage()"
         />
 
         @if(getInput('lastName')?.hasError('required')&&
@@ -52,7 +46,6 @@
         id="username"
         placeholder="Username"
         formControlName="username"
-        (focus)="resetErrorMessage()"
       />
     </div>
 
@@ -64,7 +57,6 @@
         id="email"
         placeholder="Email"
         formControlName="email"
-        (focus)="resetErrorMessage()"
       />
 
       @if(getInput('email')?.hasError('email')&& getInput('email')?.touched) {
@@ -80,7 +72,6 @@
         id="phone"
         placeholder="Phone Number"
         formControlName="phone"
-        (focus)="resetErrorMessage()"
       />
 
       @if(getInput('phone')?.hasError('pattern')&& getInput('phone')?.touched) {
@@ -91,17 +82,12 @@
     <div class="w-100 my-2">
       <label for="imageURL">Avatar Image URL</label>
       <input
-        type="text"
+        type="file"
         class="form-control"
         id="imageURL"
         placeholder="Avatar Image URL"
         formControlName="imageURL"
-        (focus)="resetErrorMessage()"
       />
-      <label for="bookImage" class="form-label">Image</label>
-      <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)">
-
-
     </div>
 
     <div class="my-3 w-100">

@@ -32,6 +32,7 @@
             <button
               class="btn btn-primary"
               (click)="openModal(item)"
+              *ngIf="showButton"
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
             >

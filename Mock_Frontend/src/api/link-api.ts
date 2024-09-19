@@ -17,4 +17,5 @@ export class ApiLink {
   updateBook: string = `${this.base}/Book/update-book`;
   cancelRequest: string = `${this.base}/Request/cancel-request`;
   updateWishlistDetailQuantity: string = `${this.base}/WishList/update-wishlist-detail-quantity`;
+  sendRequest: string = `${this.base}/Request/send-request`;
 }

@@ -28,22 +28,24 @@ export class RequestsComponent implements OnInit {
   }
 
   getData(): void {
-    this.requestService.getAllByUserId(this.userInfo.id).subscribe({
-      next: (response) => {
-        this.requestList = response;
-        console.log(this.requestList);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    if (this.userInfo) {
+      this.requestService.getAllByUserId(this.userInfo.id).subscribe({
+        next: (response) => {
+          this.requestList = response;
+          console.log(this.requestList);
+        },
+        error: (error) => {
+          this.requestList = [];
+        },
+      });
+    }
   }
 
   cancelRequest(requestId: number): any {
     this.requestService.cancelRequest(requestId).subscribe({
       next: (response) => {
         alert('Cancel Request Succesfully');
-        // reload trang
+        this.getData();
       },
       error: (error) => {
         alert('Cancel Request Fail');

@@ -26,4 +26,13 @@ export class WishlistService {
     const body = { DetailsId: detailsId, Quantity: quantity };
     return this.http.put<any>(this.linkApi.updateWishlistDetailQuantity, body);
   }
+
+  sendRequest(userId: number, pickUpDate: Date, returnDate: Date) {
+    const body = {
+      UserId: userId,
+      ExpectedPickUpDate: pickUpDate,
+      ExpectedReturnDate: returnDate,
+    };
+    return this.http.post<any>(this.linkApi.sendRequest, body);
+  }
 }

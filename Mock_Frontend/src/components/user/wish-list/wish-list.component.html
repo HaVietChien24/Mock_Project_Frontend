@@ -7,10 +7,12 @@
     <div
       *ngIf="wishlist && wishlist.wishListDetails.length != 0; else elseBlock"
     >
-      <form class="d-flex">
+      <form (ngSubmit)="onSubmit()" #requestForm="ngForm" class="d-flex">
         <div class="w-50 ps-5 align-content-center">
           <button
-            [disabled]="!isValidData"
+            [disabled]="
+              !isValidData || pickUpDate.invalid || returnDate.invalid
+            "
             class="btn text-white bg-lightblue border-0 py-2 px-5 rounded-4"
           >
             Send Request
@@ -24,8 +26,11 @@
             <input
               type="date"
               id="pick-up-date"
-              class="form-control w-75 rounded-3 px-3"
               name="pick-up-date"
+              class="form-control w-75 rounded-3 px-3"
+              required
+              [(ngModel)]="formData.pickUpDate"
+              #pickUpDate="ngModel"
             />
           </div>
 
@@ -36,12 +41,20 @@
             <input
               type="date"
               id="return-date"
-              class="form-control w-75 rounded-3 px-3"
               name="return-date"
+              class="form-control w-75 rounded-3 px-3"
+              required
+              [(ngModel)]="formData.returnDate"
+              #returnDate="ngModel"
             />
           </div>
         </div>
       </form>
+      <div class="small fst-italic text-end text-warning">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        The book pickup date is 3 to 5 days from today, and the book return date
+        can be a maximum of 30 days after the pickup date.
+      </div>
     </div>
     <ng-template #elseBlock>
       <div class="fst-italic text-center">
@@ -80,6 +93,10 @@
       }
       <div class="text-end fst-italic me-4">
         Total Quantity: {{ wishlist.totalQuantity }}
+      </div>
+      <div class="small fst-italic text-end text-warning">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        You are allowed to borrow a maximum of 30 books at a time.
       </div>
     </div>
   </div>

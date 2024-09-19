@@ -110,4 +110,15 @@ export class WishListComponent implements OnInit {
         },
       });
   }
+
+  deleteDetail(detailsId: number) {
+    this.wishlistService.deleteDetail(detailsId).subscribe({
+      next: (response) => {
+        this.getData();
+      },
+      error: (error) => {
+        alert('Some errors occured');
+      },
+    });
+  }
 }

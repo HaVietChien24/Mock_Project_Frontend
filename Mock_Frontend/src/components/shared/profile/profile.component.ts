@@ -9,11 +9,12 @@ import {
 } from '@angular/forms';
 import { UserService } from '../../../service/user-service/user.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
 import { AuthResponse } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -34,11 +35,12 @@ export class ProfileComponent {
   updateMode: boolean = false;
   isLoading: boolean = false;
   currentUser: any = null;
-  errorMessage: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.currentUser = this.userService.loadUserFromStorage();
 
@@ -74,10 +76,6 @@ export class ProfileComponent {
     return this.profileForm.get(inputName);
   }
 
-  resetErrorMessage() {
-    this.errorMessage = null;
-  }
-
   toggleUpdateMode() {
     this.updateMode = !this.updateMode;
     if (!this.updateMode) {
@@ -105,14 +103,18 @@ export class ProfileComponent {
         this.isLoading = false;
         this.updateMode = false;
 
+        this.toastr.success(res.message);
+
         localStorage.setItem('userToken', res.token);
-        window.location.href = '/profile';
+        this.router.navigate(['/login']);
       },
       error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
         this.isLoading = false;
+
         this.profileForm.enable();
         this.getInput('username')?.disable();
+
+        this.toastr.error(error.error.message);
       },
     });
   }

@@ -7,29 +7,44 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-book-borrow',
   standalone: true,
-  imports: [AdminSideBarComponent, MatTableModule, CustomDatePipe, MatPaginator, MatSort, MatButtonModule, RouterLink],
+  imports: [AdminSideBarComponent, MatTableModule, CustomDatePipe, MatPaginator, MatSort, MatButtonModule, RouterLink, CommonModule],
   templateUrl: './admin-book-borrow.component.html',
   styleUrl: './admin-book-borrow.component.css'
 })
 export class AdminBookBorrowComponent implements OnInit {
 
   data: any;
+
   displayedColumns: string[] = ['Id', 'username', 'requestDate', 'expectedPickUpDate', 'expectedReturnDate'
     , 'TotalQuantity', 'BorrowingStatus', 'Penalty', 'IsBookPickedUp', 'IsPickUpLate', 'Action'];
+
+  showPickUpButton!: boolean;
 
   constructor(private service: BorrowingService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadData();
+
   }
   loadData(): void {
     this.service.GetAllBookBorrowAdmin().subscribe((response) => {
+
       this.data = response.items;
       console.log('Data received:', this.data);
+      this.data.forEach((item: any) => {
+        if (item.isPickUpLate === "Over date") {
+          this.showPickUpButton = false;
+        } else {
+          this.showPickUpButton = true;
+        }
+
+      })
+
       this.cdr.detectChanges();
     });
   }

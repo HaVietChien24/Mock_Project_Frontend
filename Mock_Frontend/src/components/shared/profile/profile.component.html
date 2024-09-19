@@ -98,6 +98,10 @@
         formControlName="imageURL"
         (focus)="resetErrorMessage()"
       />
+      <label for="bookImage" class="form-label">Image</label>
+      <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)">
+
+
     </div>
 
     <div class="my-3 w-100">

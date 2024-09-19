@@ -13,6 +13,7 @@ import { RequestsComponent } from '../components/user/requests/requests.componen
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
 import { UserBookBorrowComponent } from '../components/user/user-book-borrow/user-book-borrow.component';
 import { authGuard } from '../components/Guard/auth.guard';
+import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
 
 export const routes: Routes = [
   { path: 'admin/dashboard', component: DashboardComponent },
@@ -40,4 +41,6 @@ export const routes: Routes = [
   { path: 'admin/ManageBook', component: AdminManageBooksComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: '/' },
+  { path: 'admin/ManageBook', component: AdminManageBooksComponent },
+  { path: 'admin/ManageRequest', component: AdminManageRequestComponent },
 ];

@@ -35,4 +35,9 @@ export class BorrowingService {
     const body = {};
     return this.http.put<any>(url, body);
   }
+  ViewListBookBorrowingUser(userId: number): Observable<any> {
+    const url = this.apiLink.ViewListBookBorrowingUser;
+    return this.http.get<any>(url + "?userId=" + userId);
+  }
+
 }

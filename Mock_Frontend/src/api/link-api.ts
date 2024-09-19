@@ -4,6 +4,7 @@ export class ApiLink {
   public GetBookBorrowingDetail: string = "http://localhost:5110/api/Borrowing/GetBorrowingDetail"
   public UpdateBookReturned: string = "http://localhost:5110/api/Borrowing/UpdateReturnedBook"
   public ConfirmPickedUp: string = "http://localhost:5110/api/Borrowing/ConfirmPickedUp"
+  public ViewListBookBorrowingUser: string = "http://localhost:5110/api/Borrowing/ViewListBookBorrowingUser"
 
   base: string = 'http://localhost:5110/api';
   getAllBooks: string = `${this.base}/Book/get-all-books`;

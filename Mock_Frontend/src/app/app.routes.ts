@@ -11,6 +11,7 @@ import { WishListComponent } from '../components/user/wish-list/wish-list.compon
 import { ProfileComponent } from '../components/shared/profile/profile.component';
 import { RequestsComponent } from '../components/user/requests/requests.component';
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
+import { UserBookBorrowComponent } from '../components/user/user-book-borrow/user-book-borrow.component';
 
 export const routes: Routes = [
   { path: 'admin/dashboard', component: DashboardComponent },
@@ -22,6 +23,10 @@ export const routes: Routes = [
   {
     path: 'admin/book-borrow-detail/:borrowingId',
     component: AdminBookBorrowingDetailComponent,
+  },
+  {
+    path: 'user/user-book-borrow',
+    component: UserBookBorrowComponent,
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

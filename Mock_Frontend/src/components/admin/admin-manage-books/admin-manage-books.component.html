@@ -38,7 +38,8 @@
                     <td>{{ listBooks.publishedYear }}</td>
                     <td>{{ listBooks.isbn }}</td>
                     <td>{{ listBooks.amount }}</td>
-                    <td></td>
+                    <td><img src="{{ listBooks.imageUrl }}" class="img-thumbnail"></td>
+
                     <td>
                         <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateBookModal"
                             (click)="editBook(listBooks)">
@@ -116,9 +117,9 @@
                                 name="amount" required>
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Image</label>
-                            <input type="text" class="form-control" id="image" [(ngModel)]="book.imageUrl" name="image"
-                                required>
+                            <label for="bookImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)">
+
                         </div>
                         <button type="submit" class="btn btn-primary">Add Book</button>
                     </form>
@@ -196,10 +197,10 @@
                                 name="amount" required>
                         </div>
                         <div class="mb-3">
-                            <label for="updateImage" class="form-label">Image</label>
-                            <input type="text" class="form-control" id="updateImage" [(ngModel)]="bookupdate.imageUrl"
-                                name="imageUrl" required>
+                            <label for="bookImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)">
                         </div>
+
                         <button type="submit" class="btn btn-primary">Update Book</button>
                     </form>
                 </div>

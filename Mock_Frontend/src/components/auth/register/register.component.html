@@ -14,11 +14,9 @@
       </div>
     </div>
 
-    @if (errorMessage) {
-    <div class="alert alert-danger w-100 danger-box mt-2">
+    <div class="alert alert-danger w-100 danger-box mt-2" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
-    }
 
     <div class="form-group name-row">
       <div>
@@ -130,14 +128,11 @@
       <p class="text-danger">Password is required</p>
       } @if(getInput('password')?.hasError('pattern') &&
       getInput('password')?.touched) {
-      <p class="text-danger">Password is not strong enough</p>
-      }
-
-      <p>
-        (Password must be at least 8 characters long, contain at least 1
-        uppercase letter, 1 lowercase letter, 1 number, and 1 special
-        character.)
+      <p class="text-danger">
+        Password must be at least 8 characters long, contain at least 1
+        uppercase letter, 1 lowercase letter, 1 number, and 1 special character.
       </p>
+      }
     </div>
 
     <div class="form-group">

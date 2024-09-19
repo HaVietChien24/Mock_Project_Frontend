@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit {
         this.bookList = [];
       },
     });
-
     this.genreService.getAll().subscribe({
       next: (response) => {
         this.genreList = response;
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit {
         this.genreList = [];
       },
     });
-
     this.userInfo = this.userService.loadUserFromStorage();
   }
 

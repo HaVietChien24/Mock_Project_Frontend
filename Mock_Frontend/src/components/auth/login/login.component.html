@@ -48,11 +48,9 @@
       </div>
     </div>
 
-    @if (errorMessage) {
-    <div class="alert alert-danger w-100 danger-box mt-2">
+    <div class="alert alert-danger w-100 danger-box mt-2" *ngIf="errorMessage">
       {{ errorMessage }}
     </div>
-    }
 
     <button
       type="submit"

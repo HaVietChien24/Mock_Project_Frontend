@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
+import { UserService } from '../../../service/user-service/user.service';
 
 @Component({
   selector: 'app-admin-side-bar',
@@ -9,4 +9,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './admin-side-bar.component.html',
   styleUrl: './admin-side-bar.component.css',
 })
-export class AdminSideBarComponent { }
+export class AdminSideBarComponent {
+  constructor(private userService: UserService) {}
+
+  logout() {
+    this.userService.logout();
+  }
+}

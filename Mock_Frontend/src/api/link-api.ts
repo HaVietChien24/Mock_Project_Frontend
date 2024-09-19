@@ -3,7 +3,8 @@ export class ApiLink {
   public GetAllBookBorrow: string = "http://localhost:5110/api/Borrowing/GetAllBorrowing";
   public GetBookBorrowingDetail: string = "http://localhost:5110/api/Borrowing/GetBorrowingDetail"
   public UpdateBookReturned: string = "http://localhost:5110/api/Borrowing/UpdateReturnedBook"
-  
+  public ConfirmPickedUp: string = "http://localhost:5110/api/Borrowing/ConfirmPickedUp"
+
   base: string = 'http://localhost:5110/api';
   getAllBooks: string = `${this.base}/Book/get-all-books`;
   getAllGenres: string = `${this.base}/Genre/get-all-genres`;
@@ -14,4 +15,6 @@ export class ApiLink {
   getAllRequestsByUserId: string = `${this.base}/Request/get-all-by-user-id`;
   addBook: string = `${this.base}/Book/add-book`;
   updateBook: string = `${this.base}/Book/update-book`;
+  cancelRequest: string = `${this.base}/Request/cancel-request`;
+  updateWishlistDetailQuantity: string = `${this.base}/WishList/update-wishlist-detail-quantity`;
 }

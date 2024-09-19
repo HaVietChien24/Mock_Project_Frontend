@@ -26,3 +26,10 @@ export interface UserProfileDTO {
   phone: string;
   username: string;
 }
+
+export interface ChangePasswordDTO {
+  id: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}

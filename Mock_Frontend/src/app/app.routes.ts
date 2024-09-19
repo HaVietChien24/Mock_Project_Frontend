@@ -12,8 +12,8 @@ import { ProfileComponent } from '../components/shared/profile/profile.component
 import { RequestsComponent } from '../components/user/requests/requests.component';
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
 import { UserBookBorrowComponent } from '../components/user/user-book-borrow/user-book-borrow.component';
+import { authGuard } from '../components/Guard/auth.guard';
 import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
-
 
 export const routes: Routes = [
   { path: 'admin/dashboard', component: DashboardComponent },
@@ -30,7 +30,7 @@ export const routes: Routes = [
     path: 'user/user-book-borrow',
     component: UserBookBorrowComponent,
   },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [authGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'admin/ManageUser', component: AdminManageUserComponent },
@@ -42,6 +42,5 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: '/' },
   { path: 'admin/ManageBook', component: AdminManageBooksComponent },
-  { path: 'admin/ManageRequest', component: AdminManageRequestComponent }
-
+  { path: 'admin/ManageRequest', component: AdminManageRequestComponent },
 ];

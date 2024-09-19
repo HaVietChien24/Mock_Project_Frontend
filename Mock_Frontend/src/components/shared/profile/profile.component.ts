@@ -15,6 +15,8 @@ import { AuthResponse } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseModule } from '../../../app/firebase/firebase.module';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +28,7 @@ import { ToastrService } from 'ngx-toastr';
     RouterLink,
     SpinnerComponent,
     ChangePasswordComponent,
+    FirebaseModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
@@ -40,7 +43,8 @@ export class ProfileComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private fireStorage: AngularFireStorage
   ) {
     this.currentUser = this.userService.loadUserFromStorage();
 
@@ -117,5 +121,30 @@ export class ProfileComponent {
         this.toastr.error(error.error.message);
       },
     });
+  }
+
+  async onImageChange(event: any) {
+    const file = event.target.files[0]; // Lấy file từ input
+
+    if (file) {
+      const path = `yt/${file.name}`; // Tạo đường dẫn lưu trữ
+      try {
+        // Tải lên file
+        const uploadTask = await this.fireStorage.upload(path, file);
+
+        // Lấy URL của file sau khi tải lên thành công
+        const url = await uploadTask.ref.getDownloadURL();
+        // Kiểm tra nếu đang trong chế độ chỉnh sửa (updating)
+
+        console.log('Download URL:', url);
+
+        // Sau khi upload thành công, có thể xử lý tiếp, ví dụ lưu URL vào database
+      } catch (error) {
+        // Bắt lỗi khi upload thất bại
+        console.error('Error uploading image:', error);
+      }
+    } else {
+      console.log('No file selected');
+    }
   }
 }

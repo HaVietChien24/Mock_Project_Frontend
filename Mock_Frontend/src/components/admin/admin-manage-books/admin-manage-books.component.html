@@ -2,7 +2,7 @@
   <div class="sidebar">
     <app-admin-side-bar></app-admin-side-bar>
   </div>
-  <div class="main-content m-4">
+  <div class="main-content ms-4">
     <h2 class="mb-4">Manage Book</h2>
 
     <!-- Button to trigger modal for adding new book -->
@@ -43,7 +43,8 @@
           <td>{{ listBooks.publishedYear }}</td>
           <td>{{ listBooks.isbn }}</td>
           <td>{{ listBooks.amount }}</td>
-          <td></td>
+          <td><img src="{{ listBooks.imageUrl }}" class="img-thumbnail" /></td>
+
           <td>
             <button
               class="btn btn-warning btn-sm"
@@ -186,14 +187,12 @@
               />
             </div>
             <div class="mb-3">
-              <label for="image" class="form-label">Image</label>
+              <label for="bookImage" class="form-label">Image</label>
               <input
-                type="text"
+                type="file"
                 class="form-control"
-                id="image"
-                [(ngModel)]="book.imageUrl"
-                name="image"
-                required
+                id="bookImage"
+                (change)="onImageChange($event)"
               />
             </div>
             <button type="submit" class="btn btn-primary">Add Book</button>
@@ -332,16 +331,15 @@
               />
             </div>
             <div class="mb-3">
-              <label for="updateImage" class="form-label">Image</label>
+              <label for="bookImage" class="form-label">Image</label>
               <input
-                type="text"
+                type="file"
                 class="form-control"
-                id="updateImage"
-                [(ngModel)]="bookupdate.imageUrl"
-                name="imageUrl"
-                required
+                id="bookImage"
+                (change)="onImageChange($event)"
               />
             </div>
+
             <button type="submit" class="btn btn-primary">Update Book</button>
           </form>
         </div>

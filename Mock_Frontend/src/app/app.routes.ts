@@ -11,6 +11,7 @@ import { WishListComponent } from '../components/user/wish-list/wish-list.compon
 import { ProfileComponent } from '../components/shared/profile/profile.component';
 import { RequestsComponent } from '../components/user/requests/requests.component';
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
+import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
 
 
 export const routes: Routes = [
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'wish-list', component: WishListComponent },
   { path: 'requests', component: RequestsComponent },
   { path: 'admin/ManageUser', component: AdminManageUserComponent },
-  { path: 'admin/ManageBook', component: AdminManageBooksComponent }
+  { path: 'admin/ManageBook', component: AdminManageBooksComponent },
+  { path: 'admin/ManageRequest', component: AdminManageRequestComponent }
 
 ];

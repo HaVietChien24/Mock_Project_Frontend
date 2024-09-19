@@ -49,7 +49,13 @@ export class LoginComponent {
     this.userService.login(this.loginForm.value).subscribe({
       next: (res: AuthResponse) => {
         localStorage.setItem('userToken', res.token);
-        this.router.navigate(['/']);
+        const roleIsAdmin = this.userService.loadUserFromStorage().isAdmin;
+
+        if (roleIsAdmin === false) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate(['/admin/dashboard']);
+        }
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;

@@ -11,7 +11,7 @@ import { UserService } from '../../../service/user-service/user.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
-import { AuthResponse } from '../../../models/UserModels';
+import { AuthResponse, UserFullInfoDTO } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +37,7 @@ export class ProfileComponent {
   profileForm: FormGroup;
   updateMode: boolean = false;
   isLoading: boolean = false;
-  currentUser: any = null;
+  currentUser: UserFullInfoDTO | null = null;
   selectedImageURL: string | null = null;
 
   constructor(
@@ -114,11 +114,11 @@ export class ProfileComponent {
           this.updateMode = false;
 
           if (
-            this.currentUser.imageURL !== null &&
-            this.currentUser.imageURL !== ''
+            this.currentUser!.imageURL !== null &&
+            this.currentUser!.imageURL !== ''
           ) {
             this.fireStorage.storage
-              .refFromURL(this.currentUser.imageURL)
+              .refFromURL(this.currentUser!.imageURL)
               .delete();
           }
           this.selectedImageURL = null;

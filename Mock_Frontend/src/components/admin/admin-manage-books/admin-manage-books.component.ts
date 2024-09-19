@@ -3,20 +3,27 @@ import { AdminSideBarComponent } from "../admin-side-bar/admin-side-bar.componen
 import { CommonModule } from '@angular/common';
 import { BookService } from '../../../service/book-service/book.service';
 import { GenreService } from '../../../service/genre-service/genre.service';
-import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import $ from 'jquery'; // Sử dụng nhập khẩu mặc định cho jQuery
-
-declare var bootstrap: any;  // Khai báo biến bootstrap
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireStorage } from "@angular/fire/compat/storage"
+import { FirebaseModule } from '../../../app/firebase/firebase.module';
 @Component({
   selector: 'app-admin-manage-books',
   standalone: true,
-  imports: [AdminSideBarComponent, CommonModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatFormFieldModule],
+  imports: [AdminSideBarComponent,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    FirebaseModule
+
+  ],
   templateUrl: './admin-manage-books.component.html',
   styleUrls: ['./admin-manage-books.component.css']
 })
 export class AdminManageBooksComponent implements OnInit {
+
+
 
   isEditing: boolean = false; // Khai báo biến isEditing
   bookIdToEdit: number | null = null; // Khai báo biến bookIdToEdit
@@ -57,7 +64,8 @@ export class AdminManageBooksComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private genreService: GenreService
+    private genreService: GenreService,
+    private fireStorage: AngularFireStorage
   ) { }
 
   ngOnInit(): void {
@@ -93,7 +101,7 @@ export class AdminManageBooksComponent implements OnInit {
     // Kiểm tra kỹ các kiểu dữ liệu để tránh lỗi định dạng
     this.book.publishedYear = Number(this.book.publishedYear);
     this.book.amount = Number(this.book.amount);
-
+    console.log('his.book', this.book);
     this.bookService.addBook(this.book).subscribe({
       next: (response) => {
         // Xử lý phản hồi không phải JSON
@@ -127,7 +135,11 @@ export class AdminManageBooksComponent implements OnInit {
 
     this.bookupdate.genres = this.selectedGenres;
     delete this.bookupdate.genreNames;
-
+ // Kiểm tra nếu người dùng đã chọn ảnh mới, cập nhật imageUrl tương ứng
+ if (!this.bookupdate.imageUrl) {
+  alert('Please upload a book image before updating.');
+  return;
+}
     console.log("Before sending to API:", this.bookupdate);
 
     this.bookService.updateBook(this.bookupdate).subscribe({
@@ -142,7 +154,34 @@ export class AdminManageBooksComponent implements OnInit {
     });
   }
 
+  async onImageChange(event: any) {
+    const file = event.target.files[0];  // Lấy file từ input
 
+    if (file) {
+      const path = `yt/${file.name}`;  // Tạo đường dẫn lưu trữ
+      try {
+        // Tải lên file
+        const uploadTask = await this.fireStorage.upload(path, file);
+
+        // Lấy URL của file sau khi tải lên thành công
+        const url = await uploadTask.ref.getDownloadURL();
+        // Kiểm tra nếu đang trong chế độ chỉnh sửa (updating)
+      if (this.isEditing) {
+        this.bookupdate.imageUrl = url; // Lưu URL vào đối tượng đang được chỉnh sửa
+      } else {
+        this.book.imageUrl = url; // Nếu không phải chế độ chỉnh sửa thì lưu vào đối tượng thêm mới
+      }
+        console.log('Download URL:', url);
+
+        // Sau khi upload thành công, có thể xử lý tiếp, ví dụ lưu URL vào database
+      } catch (error) {
+        // Bắt lỗi khi upload thất bại
+        console.error('Error uploading image:', error);
+      }
+    } else {
+      console.log('No file selected');
+    }
+  }
 
 
 }

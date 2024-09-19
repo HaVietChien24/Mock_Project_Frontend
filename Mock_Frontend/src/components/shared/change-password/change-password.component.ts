@@ -7,10 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
 import { UserService } from '../../../service/user-service/user.service';
 import { AuthResponse } from '../../../models/UserModels';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-change-password',
@@ -22,7 +23,6 @@ import { AuthResponse } from '../../../models/UserModels';
 export class ChangePasswordComponent {
   changePasswordForm: FormGroup;
   showPassword: boolean = false;
-  errorMessage: string | null = null;
   isLoading: boolean = false;
 
   @Input()
@@ -30,7 +30,8 @@ export class ChangePasswordComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {
     this.changePasswordForm = this.formBuilder.group({
       oldPassword: new FormControl('', [Validators.required]),
@@ -48,18 +49,12 @@ export class ChangePasswordComponent {
     this.showPassword = !this.showPassword;
   }
 
-  resetErrorMessage() {
-    this.errorMessage = null;
-  }
-
   getInput(inputName: string) {
     return this.changePasswordForm.get(inputName);
   }
 
   onSubmit() {
     this.changePasswordForm.disable();
-    this.errorMessage = null;
-
     this.userService
       .changePassword({
         ...this.changePasswordForm.value,
@@ -67,11 +62,11 @@ export class ChangePasswordComponent {
       })
       .subscribe({
         next: (res: AuthResponse) => {
-          console.log(res.message);
+          this.toastr.success(res.message);
         },
         error: (error) => {
-          this.errorMessage = error.error.message;
           this.changePasswordForm.enable();
+          this.toastr.error(error.error.message);
         },
       });
   }

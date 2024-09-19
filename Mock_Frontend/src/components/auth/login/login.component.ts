@@ -5,7 +5,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
   Validators,
-  FormArray,
   FormBuilder,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -13,6 +12,7 @@ import { UserService } from '../../../service/user-service/user.service';
 import { AuthResponse } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -24,13 +24,13 @@ import { SpinnerComponent } from '../../widget/spinner/spinner.component';
 export class LoginComponent {
   loginForm: FormGroup;
   showPassword: boolean = false;
-  errorMessage: string | null = null;
   isLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.loginForm = this.formBuilder.group({
       username: new FormControl('', [Validators.required]),
@@ -42,14 +42,9 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
-  resetErrorMessage() {
-    this.errorMessage = null;
-  }
-
   onSubmit() {
     this.isLoading = true;
     this.loginForm.disable();
-    this.resetErrorMessage();
 
     this.userService.login(this.loginForm.value).subscribe({
       next: (res: AuthResponse) => {
@@ -57,9 +52,10 @@ export class LoginComponent {
         this.router.navigate(['/']);
       },
       error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
         this.isLoading = false;
         this.loginForm.enable();
+
+        this.toastr.error(error.error.message);
       },
     });
   }

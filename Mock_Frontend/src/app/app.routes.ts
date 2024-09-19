@@ -13,12 +13,13 @@ import { RequestsComponent } from '../components/user/requests/requests.componen
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
 import { UserBookBorrowComponent } from '../components/user/user-book-borrow/user-book-borrow.component';
 
-
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'admin/dashboard', component: DashboardComponent },
   { path: 'admin/book-borrow', component: AdminBookBorrowComponent },
-  { path: 'admin/book-borrow-detail/:borrowingId', component: AdminBookBorrowingDetailComponent },
+  {
+    path: 'admin/book-borrow-detail/:borrowingId',
+    component: AdminBookBorrowingDetailComponent,
+  },
   {
     path: 'admin/book-borrow-detail/:borrowingId',
     component: AdminBookBorrowingDetailComponent,
@@ -35,6 +36,7 @@ export const routes: Routes = [
   { path: 'wish-list', component: WishListComponent },
   { path: 'requests', component: RequestsComponent },
   { path: 'admin/ManageUser', component: AdminManageUserComponent },
-  { path: 'admin/ManageBook', component: AdminManageBooksComponent }
-
+  { path: 'admin/ManageBook', component: AdminManageBooksComponent },
+  { path: '', component: HomeComponent },
+  { path: '**', redirectTo: '/' },
 ];

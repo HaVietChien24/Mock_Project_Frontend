@@ -1,7 +1,9 @@
+@import url("ngx-toastr/toastr");
+
 .header-search {
-    width: 40%;
+  width: 40%;
 }
 
 .text-lightgray {
-    color: #d3d3d3;
+  color: #d3d3d3;
 }

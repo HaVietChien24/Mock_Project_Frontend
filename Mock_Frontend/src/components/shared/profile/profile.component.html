@@ -87,14 +87,15 @@
         id="imageURL"
         placeholder="Avatar Image URL"
         formControlName="imageURL"
+        (change)="onImageChange($event)"
       />
     </div>
 
     <div class="my-3 w-100">
       <img
         src="{{
-          currentUser?.imageURL
-            ? currentUser?.imageURL
+          currentUser.imageURL
+            ? currentUser.imageURL
             : 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
         }}"
         class="avatar"
@@ -115,6 +116,7 @@
         type="button"
         class="btn btn-secondary mx-2"
         (click)="toggleUpdateMode()"
+        [disabled]="profileForm.invalid || isLoading"
       >
         Cancel
       </button>
@@ -163,7 +165,7 @@
       </div>
       <div class="modal-body">
         <app-change-password
-          [currentUserID]="currentUser?.id"
+          [currentUserID]="currentUser!.id"
         ></app-change-password>
       </div>
     </div>

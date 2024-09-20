@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { UserService } from '../../../service/user-service/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { BookService } from '../../../service/book-service/book.service';
 
 @Component({
   selector: 'app-requests',
@@ -19,8 +21,10 @@ export class RequestsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private requestService: RequestService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private toastr: ToastrService,
+    private bookService: BookService
+  ) {}
 
   ngOnInit(): void {
     this.userInfo = this.userService.loadUserFromStorage();
@@ -44,12 +48,16 @@ export class RequestsComponent implements OnInit {
   cancelRequest(requestId: number): any {
     this.requestService.cancelRequest(requestId).subscribe({
       next: (response) => {
-        alert('Cancel Request Succesfully');
+        this.toastr.success('Cancel Request Successfully');
         this.getData();
       },
       error: (error) => {
-        alert('Cancel Request Fail');
+        this.toastr.error('Cancel Request Fail: ', error.message);
       },
     });
+  }
+
+  viewBookDetails(bookId: number) {
+    this.bookService.viewBookDetails(bookId);
   }
 }

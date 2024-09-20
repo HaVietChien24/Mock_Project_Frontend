@@ -52,8 +52,8 @@
       </form>
       <div class="small fst-italic text-end text-warning">
         <i class="fa-solid fa-circle-exclamation"></i>
-        The book pickup date is 3 to 5 days from today, and the book return date
-        can be a maximum of 30 days after the pickup date.
+        Pick-up date must be at least 3 days and at most 5 days from today, and
+        the book return date can be a maximum of 30 days after the pickup date.
       </div>
     </div>
     <ng-template #elseBlock>
@@ -64,39 +64,55 @@
     <hr />
     <div *ngIf="wishlist && wishlist.wishListDetails.length != 0" class="p-3">
       @for (item of wishlist.wishListDetails; track $index) {
-      <div class="py-2 px-3 border-1 rounded-4 bg-light shadow-sm my-3">
-        <div class="rounded-3 d-flex justify-content-between">
-          <div class="h5 my-auto">{{ item.bookTitle }}</div>
-          <form class="d-flex justify-content-end">
-            <span class="my-auto">x</span>
-            <input
-              class="my-auto mx-2 w-25 form-control"
-              type="number"
-              min="1"
-              value="{{ item.quantity }}"
-              id="{{ item.id }}"
-              (change)="updateQuantiy($event)"
-            />
+      <div class="d-flex">
+        <div class="py-2 px-3 border-1 rounded-4 bg-light shadow-sm my-3 w-100">
+          <div class="rounded-3 d-flex justify-content-between">
+            <div
+              type="button"
+              (click)="viewBookDetails(item.bookId)"
+              class="h5 my-auto"
+            >
+              {{ item.bookTitle }}
+            </div>
+            <form class="d-flex justify-content-end">
+              <span class="my-auto">x</span>
+              <input
+                class="my-auto mx-2 w-25 form-control"
+                type="number"
+                min="1"
+                value="{{ item.quantity }}"
+                id="{{ item.id }}"
+                (change)="updateQuantiy($event)"
+              />
 
-            <img
-              class="rounded-4 my-auto book-image"
-              src="{{
-                item.imageUrl
-                  ? item.imageUrl
-                  : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
-              }}"
-              alt=""
-            />
-          </form>
+              <img
+                class="rounded-4 my-auto book-image"
+                src="{{
+                  item.imageUrl
+                    ? item.imageUrl
+                    : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
+                }}"
+                alt=""
+              />
+            </form>
+          </div>
+        </div>
+        <div class="text-end align-content-center">
+          <button class="btn" type="button" (click)="deleteDetail(item.id)">
+            <i class="fa-solid fa-trash-can small"></i>
+          </button>
         </div>
       </div>
+
       }
-      <div class="text-end fst-italic me-4">
-        Total Quantity: {{ wishlist.totalQuantity }}
-      </div>
-      <div class="small fst-italic text-end text-warning">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        You are allowed to borrow a maximum of 30 books at a time.
+      <div class="me-5">
+        <div class="text-end fst-italic">
+          Total Quantity: {{ wishlist.totalQuantity }}
+        </div>
+        <div class="small fst-italic text-end text-warning">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          You are allowed to borrow a maximum of 30 books at a time.
+        </div>
       </div>
     </div>
   </div>

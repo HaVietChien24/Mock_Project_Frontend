@@ -27,6 +27,7 @@ export class AdminBookBorrowingDetailComponent implements OnInit {
     private service: BorrowingService
   ) {}
 
+
   openModal(item: any) {
     this.selectedItem = { ...item }; // Tạo bản sao để tránh thay đổi trực tiếp
   }

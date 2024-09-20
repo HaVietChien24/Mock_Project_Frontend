@@ -11,7 +11,7 @@ import { UserService } from '../../../service/user-service/user.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
-import { AuthResponse } from '../../../models/UserModels';
+import { AuthResponse, UserFullInfoDTO } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +37,8 @@ export class ProfileComponent {
   profileForm: FormGroup;
   updateMode: boolean = false;
   isLoading: boolean = false;
-  currentUser: any = null;
+  currentUser: UserFullInfoDTO;
+  selectedImageURL: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -99,53 +100,75 @@ export class ProfileComponent {
   }
 
   onSubmit() {
-    // this.isLoading = true;
-    // this.profileForm.disable();
-    // this.userService.updateProfile(this.profileForm.value).subscribe({
-    //   next: (res: AuthResponse) => {
-    //     this.isLoading = false;
-    //     this.updateMode = false;
-    //     this.toastr.success(res.message);
-    //     localStorage.setItem('userToken', res.token);
-    //     this.router.navigate(['/login']);
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     this.isLoading = false;
-    //     this.profileForm.enable();
-    //     this.getInput('username')?.disable();
-    //     this.toastr.error(error.error.message);
-    //   },
-    // });
+    this.isLoading = true;
+    this.profileForm.disable();
 
-    let imageFile = this.getInput('imageURL')?.value;
-    console.log({ ...this.profileForm.value, imageURL: imageFile.split('//') });
+    this.userService
+      .updateProfile({
+        ...this.profileForm.value,
+        imageURL: this.selectedImageURL,
+      })
+      .subscribe({
+        next: (res: AuthResponse) => {
+          this.isLoading = false;
+          this.updateMode = false;
+
+          if (
+            this.currentUser!.imageURL !== null &&
+            this.currentUser!.imageURL !== ''
+          ) {
+            this.fireStorage.storage
+              .refFromURL(this.currentUser!.imageURL)
+              .delete();
+          }
+          this.selectedImageURL = null;
+
+          localStorage.setItem('userToken', res.token);
+          window.location.href = '/profile';
+        },
+        error: (error: HttpErrorResponse) => {
+          this.isLoading = false;
+
+          this.profileForm.enable();
+          this.getInput('username')?.disable();
+
+          this.toastr.error(error.error.message);
+        },
+      });
   }
 
   async onImageChange(event: any) {
+    this.profileForm.disable();
+    this.isLoading = true;
     const file = event.target.files[0];
 
     if (file) {
       const path = `yt/${file.name}`;
       try {
-        // await this.fireStorage.storage.ref(this.currentUser.imageURL).delete();
+        if (this.selectedImageURL) {
+          await this.fireStorage.refFromURL(this.selectedImageURL).delete();
+        }
 
         const uploadTask = await this.fireStorage.upload(path, file);
 
         const url = await uploadTask.ref.getDownloadURL();
 
         if (url) {
-          return url;
+          this.selectedImageURL = url;
+          console.log(url);
         } else {
-          this.toastr.error('Error uploading image:');
-          return null;
+          this.toastr.error('Error updating avatar');
         }
       } catch (error) {
-        this.toastr.error('Error uploading image:');
-        return null;
+        this.toastr.error('Error uploading image');
+      } finally {
+        this.profileForm.enable();
+        this.isLoading = false;
       }
     } else {
       this.toastr.error('No file selected');
-      return null;
+      this.profileForm.enable();
+      this.isLoading = false;
     }
   }
 }

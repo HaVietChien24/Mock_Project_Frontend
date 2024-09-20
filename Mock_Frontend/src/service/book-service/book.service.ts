@@ -2,13 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiLink } from '../../api/link-api';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
   linkApi: ApiLink = new ApiLink();
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   getAll(): Observable<any> {
     return this.http.get<any>(this.linkApi.getAllBooks);
@@ -30,5 +36,21 @@ export class BookService {
 
   updateBook(book: any): Observable<any> {
     return this.http.post<any>(this.linkApi.updateBook, book);
+  }
+
+  getById(bookId: number): Observable<any> {
+    return this.http.get<any>(`${this.linkApi.getBookById}/${bookId}`);
+  }
+
+  viewBookDetails(bookId: number): void {
+    this.getById(bookId).subscribe({
+      next: (response) => {
+        const book = response;
+        this.router.navigate(['/book-details'], { queryParams: book });
+      },
+      error: (error) => {
+        this.toastr.error('Some errors occured: ', error.message);
+      },
+    });
   }
 }

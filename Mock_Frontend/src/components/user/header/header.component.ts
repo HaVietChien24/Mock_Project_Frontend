@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../service/user-service/user.service';
+import { UserFullInfoDTO } from '../../../models/UserModels';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -14,13 +15,14 @@ export class HeaderComponent implements OnInit {
   searchInput: string = '';
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
   @Input() isShow!: boolean;
-  userInfo: any;
 
-  constructor(private userService: UserService) {}
+  userInfo: UserFullInfoDTO;
 
-  ngOnInit(): void {
+  constructor(private userService: UserService) {
     this.userInfo = this.userService.loadUserFromStorage();
   }
+
+  ngOnInit(): void {}
 
   logout() {
     this.userService.logout();

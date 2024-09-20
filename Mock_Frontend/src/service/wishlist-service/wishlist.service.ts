@@ -35,4 +35,10 @@ export class WishlistService {
     };
     return this.http.post<any>(this.linkApi.sendRequest, body);
   }
+
+  deleteDetail(detailsId: number): Observable<any> {
+    return this.http.delete<any>(
+      `${this.linkApi.deleteWishlistDetail}/${detailsId}`
+    );
+  }
 }

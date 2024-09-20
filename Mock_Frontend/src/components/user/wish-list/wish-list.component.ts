@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { addDays, addHours, isAfter, isBefore, parseISO } from 'date-fns';
 import { Router } from '@angular/router';
+import { BookService } from '../../../service/book-service/book.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-wish-list',
@@ -27,7 +29,9 @@ export class WishListComponent implements OnInit {
   constructor(
     private wishlistService: WishlistService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private bookService: BookService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +55,7 @@ export class WishListComponent implements OnInit {
     const detailsId: number = +input.id;
     const quantity: number = +input.value;
     if (quantity <= 0) {
-      alert('Quantity must be > 0');
+      this.toastr.warning('Quantity must be > 0');
       this.isValidData = false;
       return;
     }
@@ -61,7 +65,7 @@ export class WishListComponent implements OnInit {
         this.getData();
       },
       error: (error) => {
-        alert('Some errors occured');
+        this.toastr.error('Update quantity fail: ', error.message);
       },
     });
   }
@@ -70,16 +74,16 @@ export class WishListComponent implements OnInit {
     const today: Date = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // +7hours vì thẻ input date ở frontend có timezone là GTM+7 còn bên backend có timezone là GTM
-    const pickUpDate: Date = addHours(parseISO(this.formData.pickUpDate), 7);
-    const returnDate: Date = addHours(parseISO(this.formData.returnDate), 7);
+    const pickUpDate: Date = parseISO(this.formData.pickUpDate);
+    const returnDate: Date = parseISO(this.formData.returnDate);
 
     const isValidPickupDate: boolean =
       isAfter(pickUpDate, addDays(today, 2)) &&
       isBefore(pickUpDate, addDays(today, 6));
     if (!isValidPickupDate) {
-      this.errorMessage = 'Invalid pick-up date!';
-      alert(this.errorMessage);
+      this.errorMessage =
+        'Pick-up date must be at least 3 days and at most 5 days from today';
+      this.toastr.warning(this.errorMessage);
       return;
     }
 
@@ -87,27 +91,49 @@ export class WishListComponent implements OnInit {
       isAfter(returnDate, addDays(pickUpDate, -1)) &&
       isBefore(returnDate, addDays(pickUpDate, 31));
     if (!isValidReturnDate) {
-      this.errorMessage = 'Invalid return date!';
-      alert(this.errorMessage);
+      this.errorMessage =
+        'Return date must be a maximum of 30 days after the pickup date';
+      this.toastr.warning(this.errorMessage);
       return;
     }
 
     if (this.wishlist.totalQuantity > 30) {
       this.errorMessage = 'The total number of books exceeds 30';
-      alert(this.errorMessage);
+      this.toastr.warning(this.errorMessage);
       return;
     }
     this.errorMessage = '';
     this.wishlistService
-      .sendRequest(this.userInfo.id, pickUpDate, returnDate)
+      .sendRequest(
+        this.userInfo.id,
+        // +7hours vì thẻ input date ở frontend có timezone là GTM+7 còn bên backend có timezone là GTM
+        addHours(pickUpDate, 7),
+        addHours(returnDate, 7)
+      )
       .subscribe({
         next: (response) => {
-          alert('Send Reuqest Successfully');
+          this.toastr.success('Send Request Successfully');
           this.router.navigate(['/requests']);
         },
         error: (error) => {
-          alert('Some errors occured');
+          this.toastr.error('Some errors occured: ', error.message);
         },
       });
+  }
+
+  deleteDetail(detailsId: number) {
+    this.wishlistService.deleteDetail(detailsId).subscribe({
+      next: (response) => {
+        this.toastr.success('Delete Success');
+        this.getData();
+      },
+      error: (error) => {
+        this.toastr.error('Delete Fail: ', error.message);
+      },
+    });
+  }
+
+  viewBookDetails(bookId: number) {
+    this.bookService.viewBookDetails(bookId);
   }
 }

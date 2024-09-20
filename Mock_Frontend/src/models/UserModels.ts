@@ -27,6 +27,17 @@ export interface UserProfileDTO {
   username: string;
 }
 
+export interface UserFullInfoDTO {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  imageURL: string;
+  phone: string;
+  username: string;
+  isAdmin: string;
+}
+
 export interface ChangePasswordDTO {
   id: string;
   oldPassword: string;

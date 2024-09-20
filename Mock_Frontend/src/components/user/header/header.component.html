@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light border-bottom">
   <div class="container-fluid px-5 py-2">
-    <a class="navbar-brand" routerLink="/admin/dashboard">
+    <a class="navbar-brand" routerLink="/">
       <img
         class="header-logo"
         src="assets/images/logo/logo-no-background.png"
@@ -14,10 +14,12 @@
     >
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a routerLink="/" class="nav-link active">Home</a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/admin/dashboard" class="nav-link active">Admin</a>
+          <a
+            routerLink="/admin/dashboard"
+            class="nav-link active fw-bold"
+            *ngIf="userInfo.isAdmin === 'True'"
+            >Admin</a
+          >
         </li>
       </ul>
 
@@ -57,7 +59,7 @@
               <img
                 class="avatar rounded-circle border border-white"
                 src="{{
-                  userInfo?.imageURL
+                  userInfo!.imageURL
                     ? userInfo.imageURL
                     : 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
                 }}"
@@ -66,24 +68,28 @@
             </div>
             <div class="w-75 px-3">
               <div class="text-uppercase text-lightblue fw-bold">
-                {{ userInfo?.firstName }} {{ userInfo?.lastName }}
+                {{ userInfo!.firstName }} {{ userInfo!.lastName }}
               </div>
               <div class="small">Member</div>
             </div>
             <i class="fa-solid fa-sort-down"></i>
           </div>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @if(userInfo.isAdmin === "False") {
             <li>
-              <a class="dropdown-item" href="/wish-list">Your Wishlish</a>
+              <a class="dropdown-item" routerLink="/wish-list">Your Wishlish</a>
             </li>
-            <li><a class="dropdown-item" href="/requests">Your Requests</a></li>
             <li>
-              <a class="dropdown-item" href="/user/user-book-borrow"
+              <a class="dropdown-item" routerLink="/requests">Your Requests</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/user/user-book-borrow"
                 >Book Borrowing</a
               >
             </li>
-            <li><a class="dropdown-item" href="#">History</a></li>
+            <li><a class="dropdown-item" routerLink="#">History</a></li>
             <li><hr class="dropdown-divider" /></li>
+            }
             <li>
               <a class="dropdown-item" routerLink="/profile">Your Profile</a>
             </li>

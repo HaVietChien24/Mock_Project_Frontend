@@ -15,7 +15,11 @@
 
         @for (details of request.requestDetails; track $index) {
         <div class="d-flex justify-content-between">
-          <div class="align-content-center fw-bold">
+          <div
+            type="button"
+            (click)="viewBookDetails(details.bookId)"
+            class="align-content-center fw-bold"
+          >
             {{ details.bookTitle }}
           </div>
           <div class="d-flex">

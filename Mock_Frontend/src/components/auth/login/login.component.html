@@ -18,7 +18,6 @@
         id="username"
         placeholder="Username"
         formControlName="username"
-        (focus)="resetErrorMessage()"
       />
     </div>
 
@@ -29,7 +28,6 @@
           [type]="showPassword ? 'text' : 'password'"
           class="form-control"
           id="password"
-          (focus)="resetErrorMessage()"
           placeholder="Password"
           formControlName="password"
         />
@@ -46,10 +44,6 @@
           ></i>
         </button>
       </div>
-    </div>
-
-    <div class="alert alert-danger w-100 danger-box mt-2" *ngIf="errorMessage">
-      {{ errorMessage }}
     </div>
 
     <button

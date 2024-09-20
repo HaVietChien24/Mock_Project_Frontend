@@ -12,29 +12,76 @@ import { ProfileComponent } from '../components/shared/profile/profile.component
 import { RequestsComponent } from '../components/user/requests/requests.component';
 import { AdminManageBooksComponent } from '../components/admin/admin-manage-books/admin-manage-books.component';
 import { UserBookBorrowComponent } from '../components/user/user-book-borrow/user-book-borrow.component';
-
+import { authGuard } from '../Guard/auth-guard/auth.guard';
+import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
+import { UnauthorizedComponent } from '../components/shared/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'admin/dashboard', component: DashboardComponent },
-  { path: 'admin/book-borrow', component: AdminBookBorrowComponent },
-  { path: 'admin/book-borrow-detail/:borrowingId', component: AdminBookBorrowingDetailComponent },
+  { path: 'login', component: LoginComponent, canActivate: [authGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [authGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin/dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin/book-borrow',
+    component: AdminBookBorrowComponent,
+    canActivate: [authGuard],
+  },
   {
     path: 'admin/book-borrow-detail/:borrowingId',
     component: AdminBookBorrowingDetailComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin/book-borrow-detail/:borrowingId',
+    component: AdminBookBorrowingDetailComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'user/user-book-borrow',
     component: UserBookBorrowComponent,
+    canActivate: [authGuard],
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'admin/ManageUser', component: AdminManageUserComponent },
-  { path: 'book-details', component: BookDetailsComponent },
-  { path: 'wish-list', component: WishListComponent },
-  { path: 'requests', component: RequestsComponent },
-  { path: 'admin/ManageUser', component: AdminManageUserComponent },
-  { path: 'admin/ManageBook', component: AdminManageBooksComponent }
-
+  {
+    path: 'admin/ManageUser',
+    component: AdminManageUserComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'book-details',
+    component: BookDetailsComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'wish-list', component: WishListComponent, canActivate: [authGuard] },
+  { path: 'requests', component: RequestsComponent, canActivate: [authGuard] },
+  {
+    path: 'admin/ManageUser',
+    component: AdminManageUserComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin/ManageBook',
+    component: AdminManageBooksComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin/ManageBook',
+    component: AdminManageBooksComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin/ManageRequest',
+    component: AdminManageRequestComponent,
+    canActivate: [authGuard],
+  },
+  { path: '', component: HomeComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: '/' },
 ];

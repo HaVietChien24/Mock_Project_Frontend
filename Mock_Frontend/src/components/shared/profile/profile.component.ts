@@ -9,12 +9,12 @@ import {
 } from '@angular/forms';
 import { UserService } from '../../../service/user-service/user.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
-import { AuthResponse } from '../../../models/UserModels';
+import { AuthResponse, UserFullInfoDTO } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-import { log } from 'node:console';
+import { ToastrService } from 'ngx-toastr';
 import { FirebaseModule } from '../../../app/firebase/firebase.module';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -28,22 +28,23 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
     RouterLink,
     SpinnerComponent,
     ChangePasswordComponent,
-    FirebaseModule
+    FirebaseModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
-
   profileForm: FormGroup;
   updateMode: boolean = false;
   isLoading: boolean = false;
-  currentUser: any = null;
-  errorMessage: string | null = null;
+  currentUser: UserFullInfoDTO | null = null;
+  selectedImageURL: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService,
     private fireStorage: AngularFireStorage
   ) {
     this.currentUser = this.userService.loadUserFromStorage();
@@ -70,7 +71,7 @@ export class ProfileComponent {
         [Validators.pattern('^[0-9]*$')]
       ),
       imageURL: new FormControl({
-        value: this.currentUser?.imageURL,
+        value: null,
         disabled: true,
       }),
     });
@@ -78,10 +79,6 @@ export class ProfileComponent {
 
   getInput(inputName: string) {
     return this.profileForm.get(inputName);
-  }
-
-  resetErrorMessage() {
-    this.errorMessage = null;
   }
 
   toggleUpdateMode() {
@@ -106,46 +103,72 @@ export class ProfileComponent {
     this.isLoading = true;
     this.profileForm.disable();
 
-    this.userService.updateProfile(this.profileForm.value).subscribe({
-      next: (res: AuthResponse) => {
-        this.isLoading = false;
-        this.updateMode = false;
+    this.userService
+      .updateProfile({
+        ...this.profileForm.value,
+        imageURL: this.selectedImageURL,
+      })
+      .subscribe({
+        next: (res: AuthResponse) => {
+          this.isLoading = false;
+          this.updateMode = false;
 
-        localStorage.setItem('userToken', res.token);
-        window.location.href = '/profile';
-      },
-      error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
-        this.isLoading = false;
-        this.profileForm.enable();
-        this.getInput('username')?.disable();
-      },
-    });
+          if (
+            this.currentUser!.imageURL !== null &&
+            this.currentUser!.imageURL !== ''
+          ) {
+            this.fireStorage.storage
+              .refFromURL(this.currentUser!.imageURL)
+              .delete();
+          }
+          this.selectedImageURL = null;
+
+          localStorage.setItem('userToken', res.token);
+          window.location.href = '/profile';
+        },
+        error: (error: HttpErrorResponse) => {
+          this.isLoading = false;
+
+          this.profileForm.enable();
+          this.getInput('username')?.disable();
+
+          this.toastr.error(error.error.message);
+        },
+      });
   }
 
-
   async onImageChange(event: any) {
-    const file = event.target.files[0];  // Lấy file từ input
+    this.profileForm.disable();
+    this.isLoading = true;
+    const file = event.target.files[0];
 
     if (file) {
-      const path = `yt/${file.name}`;  // Tạo đường dẫn lưu trữ
+      const path = `yt/${file.name}`;
       try {
-        // Tải lên file
+        if (this.selectedImageURL) {
+          await this.fireStorage.refFromURL(this.selectedImageURL).delete();
+        }
+
         const uploadTask = await this.fireStorage.upload(path, file);
 
-        // Lấy URL của file sau khi tải lên thành công
         const url = await uploadTask.ref.getDownloadURL();
-        // Kiểm tra nếu đang trong chế độ chỉnh sửa (updating)
 
-        console.log('Download URL:', url);
-
-        // Sau khi upload thành công, có thể xử lý tiếp, ví dụ lưu URL vào database
+        if (url) {
+          this.selectedImageURL = url;
+          console.log(url);
+        } else {
+          this.toastr.error('Error updating avatar');
+        }
       } catch (error) {
-        // Bắt lỗi khi upload thất bại
-        console.error('Error uploading image:', error);
+        this.toastr.error('Error uploading image');
+      } finally {
+        this.profileForm.enable();
+        this.isLoading = false;
       }
     } else {
-      console.log('No file selected');
+      this.toastr.error('No file selected');
+      this.profileForm.enable();
+      this.isLoading = false;
     }
   }
 }

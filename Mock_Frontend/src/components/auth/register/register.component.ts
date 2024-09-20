@@ -11,6 +11,8 @@ import { SpinnerComponent } from '../../widget/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { AuthResponse } from '../../../models/UserModels';
 
 @Component({
   selector: 'app-register',
@@ -22,13 +24,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterComponent {
   registerForm: FormGroup;
   showPassword: boolean = false;
-  errorMessage: string | null = null;
   isLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.registerForm = this.formBuilder.group({
       firstName: new FormControl('', [Validators.required]),
@@ -46,10 +48,6 @@ export class RegisterComponent {
     });
   }
 
-  resetErrorMessage() {
-    this.errorMessage = null;
-  }
-
   handleShowPassword() {
     this.showPassword = !this.showPassword;
   }
@@ -61,14 +59,14 @@ export class RegisterComponent {
   onSubmit() {
     this.isLoading = true;
     this.registerForm.disable();
-    this.resetErrorMessage();
 
     this.userService.register(this.registerForm.value).subscribe({
-      next: () => {
+      next: (res: AuthResponse) => {
+        this.toastr.error(res.message);
         this.router.navigate(['/login']);
       },
       error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.error.message;
+        this.toastr.error(error.error.message);
         this.isLoading = false;
         this.registerForm.enable();
       },

@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfo = this.userService.loadUserFromStorage();
-    console.log(this.userInfo);
   }
 
   logout() {

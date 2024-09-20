@@ -51,13 +51,6 @@ label {
   align-items: center;
 }
 
-.danger-box {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .redirector {
   margin-top: 15px;
   text-decoration: none;

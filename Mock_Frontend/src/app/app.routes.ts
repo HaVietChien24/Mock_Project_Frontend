@@ -40,8 +40,8 @@ export const routes: Routes = [
   { path: 'admin/ManageUser', component: AdminManageUserComponent },
   { path: 'admin/ManageBook', component: AdminManageBooksComponent },
   { path: '', component: HomeComponent },
-  { path: '**', redirectTo: '/' },
   { path: 'admin/ManageBook', component: AdminManageBooksComponent },
-  { path: 'admin/ManageRequest', component: AdminManageRequestComponent }
+  { path: 'admin/ManageRequest', component: AdminManageRequestComponent },
+  { path: '**', redirectTo: '/' },
 
 ];

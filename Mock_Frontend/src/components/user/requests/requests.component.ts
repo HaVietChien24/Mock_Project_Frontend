@@ -20,7 +20,7 @@ export class RequestsComponent implements OnInit {
     private userService: UserService,
     private requestService: RequestService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userInfo = this.userService.loadUserFromStorage();

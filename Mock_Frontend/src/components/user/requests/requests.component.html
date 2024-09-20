@@ -4,10 +4,7 @@
     <div class="h2">Your Requests</div>
     <hr />
     <div class="py-3 px-5">
-      <div
-        *ngIf="!requestList || requestList.length == 0"
-        class="text-center fst-italic"
-      >
+      <div *ngIf="!requestList || requestList.length == 0" class="text-center fst-italic">
         You currently have no requests
       </div>
       @for (request of requestList; track $index) {
@@ -26,15 +23,11 @@
               x {{ details.quantity }}
             </div>
             <div>
-              <img
-                class="img-fluid rounded-4 book-image"
-                src="{{
+              <img class="img-fluid rounded-4 book-image" src="{{
                   details.imageUrl
                     ? details.imageUrl
                     : 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg'
-                }}"
-                alt=""
-              />
+                }}" alt="" />
             </div>
           </div>
         </div>
@@ -61,10 +54,7 @@
               </div>
             </div>
             <div class="align-content-center">
-              <button
-                (click)="cancelRequest(request.id)"
-                class="btn btn-outline-warning px-4"
-              >
+              <button (click)="cancelRequest(request.id)" class="btn btn-outline-warning px-4">
                 Cancel
               </button>
             </div>

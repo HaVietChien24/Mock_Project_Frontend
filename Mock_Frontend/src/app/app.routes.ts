@@ -15,6 +15,7 @@ import { UserBookBorrowComponent } from '../components/user/user-book-borrow/use
 import { authGuard } from '../Guard/auth-guard/auth.guard';
 import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
 import { UnauthorizedComponent } from '../components/shared/unauthorized/unauthorized.component';
+import { adminOnlyGuard } from '../Guard/admin-only-guard/admin-only.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
@@ -28,22 +29,22 @@ export const routes: Routes = [
   {
     path: 'admin/dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'admin/book-borrow',
     component: AdminBookBorrowComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'admin/book-borrow-detail/:borrowingId',
     component: AdminBookBorrowingDetailComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'admin/book-borrow-detail/:borrowingId',
     component: AdminBookBorrowingDetailComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'user/user-book-borrow',
@@ -53,7 +54,7 @@ export const routes: Routes = [
   {
     path: 'admin/ManageUser',
     component: AdminManageUserComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'book-details',
@@ -65,22 +66,22 @@ export const routes: Routes = [
   {
     path: 'admin/ManageUser',
     component: AdminManageUserComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'admin/ManageBook',
     component: AdminManageBooksComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'admin/ManageBook',
     component: AdminManageBooksComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   {
     path: 'admin/ManageRequest',
     component: AdminManageRequestComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, adminOnlyGuard],
   },
   { path: '', component: HomeComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '/' },

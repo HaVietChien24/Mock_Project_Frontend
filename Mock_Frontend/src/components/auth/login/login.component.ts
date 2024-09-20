@@ -51,7 +51,7 @@ export class LoginComponent {
         localStorage.setItem('userToken', res.token);
         const roleIsAdmin = this.userService.loadUserFromStorage().isAdmin;
 
-        if (roleIsAdmin === false) {
+        if (roleIsAdmin === 'False') {
           this.router.navigate(['/']);
         } else {
           this.router.navigate(['/admin/dashboard']);

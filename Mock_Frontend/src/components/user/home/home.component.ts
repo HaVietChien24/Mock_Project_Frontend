@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   bookList: any = [];
   genreList: any = [];
   title: string = 'All Books';
+  message: string = 'Temporarily unavailable!';
   genreId: number = 0;
   userInfo: any;
 
@@ -53,6 +54,7 @@ export class HomeComponent implements OnInit {
   getBooksByGenre(genre: any) {
     this.title = genre.name;
     this.genreId = genre.id;
+    this.message = 'There are no books of this genre!';
     this.bookService.getByGenreId(genre.id).subscribe({
       next: (response) => {
         this.bookList = response;
@@ -66,6 +68,7 @@ export class HomeComponent implements OnInit {
   onSearch(search: string) {
     this.title = 'Search Result';
     this.genreId = 0;
+    this.message = 'No result found!';
     this.bookService.searchByTitleOrAuthor(search).subscribe({
       next: (response) => {
         this.bookList = response;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../service/user-service/user.service';
+import { UserFullInfoDTO } from '../../../models/UserModels';
 
 @Component({
   selector: 'app-admin-side-bar',
@@ -10,7 +11,10 @@ import { UserService } from '../../../service/user-service/user.service';
   styleUrl: './admin-side-bar.component.css',
 })
 export class AdminSideBarComponent {
-  constructor(private userService: UserService) {}
+  currentUser: UserFullInfoDTO;
+  constructor(private userService: UserService) {
+    this.currentUser = userService.loadUserFromStorage();
+  }
 
   logout() {
     this.userService.logout();

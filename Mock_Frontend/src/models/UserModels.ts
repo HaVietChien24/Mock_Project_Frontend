@@ -35,7 +35,7 @@ export interface UserFullInfoDTO {
   imageURL: string;
   phone: string;
   username: string;
-  isAdmin: boolean;
+  isAdmin: string;
 }
 
 export interface ChangePasswordDTO {

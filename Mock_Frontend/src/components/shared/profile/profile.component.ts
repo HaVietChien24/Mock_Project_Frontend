@@ -37,7 +37,7 @@ export class ProfileComponent {
   profileForm: FormGroup;
   updateMode: boolean = false;
   isLoading: boolean = false;
-  currentUser: UserFullInfoDTO | null = null;
+  currentUser: UserFullInfoDTO;
   selectedImageURL: string | null = null;
 
   constructor(

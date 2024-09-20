@@ -1,15 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { UserService } from '../../service/user-service/user.service';
 import { UserFullInfoDTO } from '../../models/UserModels';
+import { UserService } from '../../service/user-service/user.service';
 
-export const authorizationGuard: CanActivateFn = (route, state) => {
+export const adminOnlyGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const userService = inject(UserService);
 
   const currentUser: UserFullInfoDTO = userService.loadUserFromStorage();
 
-  if (!currentUser.isAdmin) {
+  if (currentUser.isAdmin === 'False') {
     router.navigate(['/unauthorized']);
     return false;
   }

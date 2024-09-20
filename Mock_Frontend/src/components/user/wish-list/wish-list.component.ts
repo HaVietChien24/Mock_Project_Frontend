@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { addDays, addHours, isAfter, isBefore, parseISO } from 'date-fns';
 import { Router } from '@angular/router';
+import { BookService } from '../../../service/book-service/book.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -27,7 +28,8 @@ export class WishListComponent implements OnInit {
   constructor(
     private wishlistService: WishlistService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private bookService: BookService
   ) {}
 
   ngOnInit(): void {
@@ -115,6 +117,18 @@ export class WishListComponent implements OnInit {
     this.wishlistService.deleteDetail(detailsId).subscribe({
       next: (response) => {
         this.getData();
+      },
+      error: (error) => {
+        alert('Some errors occured');
+      },
+    });
+  }
+
+  viewBookDetails(bookId: number) {
+    this.bookService.getById(bookId).subscribe({
+      next: (response) => {
+        const book = response;
+        this.router.navigate(['/book-details'], { queryParams: book });
       },
       error: (error) => {
         alert('Some errors occured');

@@ -8,7 +8,7 @@ import { ApiLink } from '../../api/link-api';
 })
 export class BookService {
   linkApi: ApiLink = new ApiLink();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
     return this.http.get<any>(this.linkApi.getAllBooks);
@@ -30,5 +30,9 @@ export class BookService {
 
   updateBook(book: any): Observable<any> {
     return this.http.post<any>(this.linkApi.updateBook, book);
+  }
+
+  getById(bookId: number): Observable<any> {
+    return this.http.get<any>(`${this.linkApi.getBookById}/${bookId}`);
   }
 }

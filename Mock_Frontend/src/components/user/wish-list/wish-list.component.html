@@ -67,7 +67,13 @@
       <div class="d-flex">
         <div class="py-2 px-3 border-1 rounded-4 bg-light shadow-sm my-3 w-100">
           <div class="rounded-3 d-flex justify-content-between">
-            <div class="h5 my-auto">{{ item.bookTitle }}</div>
+            <div
+              type="button"
+              (click)="viewBookDetails(item.bookId)"
+              class="h5 my-auto"
+            >
+              {{ item.bookTitle }}
+            </div>
             <form class="d-flex justify-content-end">
               <span class="my-auto">x</span>
               <input

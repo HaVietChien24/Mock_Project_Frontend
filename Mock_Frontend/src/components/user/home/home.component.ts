@@ -7,6 +7,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { ListGenreComponent } from '../list-genre/list-genre.component';
 import { BookService } from '../../../service/book-service/book.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
     private genreService: GenreService,
     private router: Router,
     private wishlistService: WishlistService,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -86,11 +88,10 @@ export class HomeComponent implements OnInit {
   addToWishlist(bookId: number) {
     this.wishlistService.addToWishlist(this.userInfo.id, bookId).subscribe({
       next: (response) => {
-        alert('Add Succesfully');
+        this.toastr.success('Add Successfully');
       },
       error: (error) => {
-        alert('Add Fail');
-        console.log(error);
+        this.toastr.error('Add Fail: ', error.message);
       },
     });
   }

@@ -8,15 +8,17 @@ import { MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-book-borrow',
   standalone: true,
-  imports: [AdminSideBarComponent, MatTableModule, CustomDatePipe, MatPaginator, MatSort, MatButtonModule, RouterLink, CommonModule],
+  imports: [AdminSideBarComponent, MatTableModule, CustomDatePipe, MatPaginator, MatSort, MatButtonModule, RouterLink, CommonModule, FormsModule],
   templateUrl: './admin-book-borrow.component.html',
   styleUrl: './admin-book-borrow.component.css'
 })
 export class AdminBookBorrowComponent implements OnInit {
+
 
   data: any;
 
@@ -24,6 +26,7 @@ export class AdminBookBorrowComponent implements OnInit {
     , 'TotalQuantity', 'BorrowingStatus', 'Penalty', 'IsBookPickedUp', 'IsPickUpLate', 'Action'];
 
   showPickUpButton!: boolean;
+  searchKey: string = '';
 
   constructor(private service: BorrowingService, private cdr: ChangeDetectorRef) { }
 
@@ -32,7 +35,7 @@ export class AdminBookBorrowComponent implements OnInit {
 
   }
   loadData(): void {
-    this.service.GetAllBookBorrowAdmin().subscribe((response) => {
+    this.service.GetAllBookBorrowAdmin(this.searchKey, 1, 5).subscribe((response) => {
 
       this.data = response.items;
       console.log('Data received:', this.data);
@@ -48,8 +51,9 @@ export class AdminBookBorrowComponent implements OnInit {
       this.cdr.detectChanges();
     });
   }
-
-
+  applyFilter(): void {
+    this.loadData();
+  }
   ConfirmPickUp(id: number): void {
     this.service.ConfirmPickedUp(id).subscribe(
       (response) => {

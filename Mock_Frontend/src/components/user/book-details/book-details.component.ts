@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../../service/wishlist-service/wishlist.service';
 import { UserService } from '../../../service/user-service/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-details',
@@ -20,7 +21,8 @@ export class BookDetailsComponent {
     private route: ActivatedRoute,
     private wishlistService: WishlistService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -33,11 +35,11 @@ export class BookDetailsComponent {
   addToWishlist(bookId: number) {
     this.wishlistService.addToWishlist(this.userInfo.id, bookId).subscribe({
       next: (response) => {
-        alert('Add Succesfully');
+        this.toastr.success('Added to your wishlist');
         this.router.navigate(['/wish-list']);
       },
       error: (error) => {
-        alert('Add Fail');
+        this.toastr.error('Add to wishlist fail');
       },
     });
   }

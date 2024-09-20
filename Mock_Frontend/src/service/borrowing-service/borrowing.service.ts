@@ -13,8 +13,13 @@ export class BorrowingService {
   constructor(private http: HttpClient) {
     this.apiLink = new ApiLink();
   }
-  GetAllBookBorrowAdmin(): Observable<any> {
-    const url = this.apiLink.GetAllBookBorrow;
+  GetAllBookBorrowAdmin(userName: string | null, page: number, pageSize: number): Observable<any> {
+    let url = `${this.apiLink.GetAllBookBorrow}?page=${page}&pageSize=${pageSize}`;
+
+    if (userName) {
+      url += `&userName=${encodeURIComponent(userName)}`;
+    }
+
     return this.http.get<any>(url);
   }
   GetBookBorrowingDetail(borrowingId: number): Observable<any> {

@@ -52,8 +52,8 @@
       </form>
       <div class="small fst-italic text-end text-warning">
         <i class="fa-solid fa-circle-exclamation"></i>
-        The book pickup date is 3 to 5 days from today, and the book return date
-        can be a maximum of 30 days after the pickup date.
+        Pick-up date must be at least 3 days and at most 5 days from today, and
+        the book return date can be a maximum of 30 days after the pickup date.
       </div>
     </div>
     <ng-template #elseBlock>
@@ -67,7 +67,13 @@
       <div class="d-flex">
         <div class="py-2 px-3 border-1 rounded-4 bg-light shadow-sm my-3 w-100">
           <div class="rounded-3 d-flex justify-content-between">
-            <div class="h5 my-auto">{{ item.bookTitle }}</div>
+            <div
+              type="button"
+              (click)="viewBookDetails(item.bookId)"
+              class="h5 my-auto"
+            >
+              {{ item.bookTitle }}
+            </div>
             <form class="d-flex justify-content-end">
               <span class="my-auto">x</span>
               <input

@@ -20,4 +20,5 @@ export class ApiLink {
   updateWishlistDetailQuantity: string = `${this.base}/WishList/update-wishlist-detail-quantity`;
   sendRequest: string = `${this.base}/Request/send-request`;
   deleteWishlistDetail: string = `${this.base}/WishList/delete-wishlist-detail`;
+  getBookById: string = `${this.base}/Book/get-by-id`;
 }

@@ -17,6 +17,7 @@
           <th>Actual Return Date</th>
           <th>Number Of Books Returned</th>
           <th>Status</th>
+
           <th>Action</th>
         </tr>
       </thead>
@@ -26,6 +27,7 @@
           <td>{{ item.quantity }}</td>
           <td>{{ item.actualReturnDate | customdate }}</td>
           <td>{{ item.numberReturnedBook }}</td>
+
           <td>{{ item.status }}</td>
           <td>
             <!-- Nút mở modal -->

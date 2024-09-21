@@ -25,7 +25,7 @@ export class AdminBookBorrowComponent implements OnInit {
   displayedColumns: string[] = ['Id', 'username', 'requestDate', 'expectedPickUpDate', 'expectedReturnDate'
     , 'TotalQuantity', 'BorrowingStatus', 'Penalty', 'IsBookPickedUp', 'IsPickUpLate', 'Action'];
 
-  showPickUpButton!: boolean;
+
   searchKey: string = '';
 
   constructor(private service: BorrowingService, private cdr: ChangeDetectorRef) { }
@@ -41,9 +41,9 @@ export class AdminBookBorrowComponent implements OnInit {
       console.log('Data received:', this.data);
       this.data.forEach((item: any) => {
         if (item.isPickUpLate === "Over date") {
-          this.showPickUpButton = false;
-        } else {
-          this.showPickUpButton = true;
+          item.showPickUpButton = false;
+        } else if (item.isPickUpLate === "On time") {
+          item.showPickUpButton = true;
         }
 
       })

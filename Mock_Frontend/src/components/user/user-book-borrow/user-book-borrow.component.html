@@ -11,6 +11,7 @@
             <th scope="col">Book Name</th>
             <th scope="col">Quantity</th>
             <th scope="col">Actual Return Date</th>
+            <th scope="col">Expected Pickup Date</th>
             <th scope="col">Books Returned</th>
             <th scope="col">IsBookPickedUp</th>
             <th scope="col">BorrowingStatus</th>
@@ -33,6 +34,7 @@
             <td>{{ item.bookName }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.actualReturnDate | customdate }}</td>
+            <td>{{ item.expectedPickupDate | customdate }}</td>
             <td>{{ item.numberReturnedBook }}</td>
             <td>
               {{ item.isBookPickedUp === true ? "Đã đến lấy" : "Chưa đến lấy" }}
@@ -40,10 +42,15 @@
             <td>
               @if (item.isBookPickedUp === false ) {
               <span class="badge bg-info text-dark"> </span>
-              }@else if(item.isBookPickedUp === true) {
+              }@else if(item.isBookPickedUp === true &&
+              item.quantity!==item.numberReturnedBook) {
               <span class="badge bg-info text-dark">Chưa trả sách </span>
               }@else if(item.isBookPickedUp === true &&
               item.quantity===item.numberReturnedBook){
+              <span class="badge bg-info text-dark">Đã trả đủ </span>
+              } @else if(item.isBookPickedUp === false &&
+              item.quantity!==item.numberReturnedBook &&
+              isDateTimePast(item.expectedPickupDate)){
               <span class="badge bg-info text-dark">Đã trả đủ </span>
               }
             </td>

@@ -14,6 +14,7 @@ export class ApiLink {
   getWishlistByUserId: string = `${this.base}/WishList/get-wish-list-by-user-id`;
   addBookToWishlist: string = `${this.base}/WishList/add-book-to-wish-list`;
   getAllRequestsByUserId: string = `${this.base}/Request/get-all-by-user-id`;
+  getAllRequestsByAllUser: string = `${this.base}/Request/get-all-request-by-all-user`;
   addBook: string = `${this.base}/Book/add-book`;
   updateBook: string = `${this.base}/Book/update-book`;
   cancelRequest: string = `${this.base}/Request/cancel-request`;
@@ -21,4 +22,5 @@ export class ApiLink {
   sendRequest: string = `${this.base}/Request/send-request`;
   deleteWishlistDetail: string = `${this.base}/WishList/delete-wishlist-detail`;
   getBookById: string = `${this.base}/Book/get-by-id`;
+  updateRequestStatus: string = `${this.base}/Request/update-request-status`;
 }

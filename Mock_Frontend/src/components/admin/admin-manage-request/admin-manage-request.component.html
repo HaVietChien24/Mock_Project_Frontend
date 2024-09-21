@@ -9,9 +9,13 @@
                 <hr />
                 <div class="py-3 px-5">
                     @for (request of requestList; track $index) {
+
                     <div class="my-3 rounded-4 shadow border-0 py-3 px-5 bg-light">
                         <div class="text-end text-warning mb-3 small fw-bold">
                             Request At: {{ request.requestDate | date : "dd/mm/yyyy hh:mm" }}
+                        </div>
+                        <div class=" fw-bold">
+                            UserName : {{ request.userName }}
                         </div>
 
                         @for (details of request.requestDetails; track $index) {
@@ -54,13 +58,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="align-content-center">
-                                    <!-- <button
-                          (click)="cancelRequest(request.id)"
-                          class="btn btn-outline-warning px-4"
-                        >
-                          Cancel
-                        </button> -->
+                                <div class="d-flex justify-content-between me-5">
+                                    <button type="button" class="btn btn-success me-3"
+                                        (click)="updateRequestStatus(request.id, 'accept')">Accept</button>
+                                    <!-- Reject Button -->
+                                    <!-- Reject Button -->
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="updateRequestStatus(request.id, 'reject')">Reject</button>
                                 </div>
                             </div>
                         </div>

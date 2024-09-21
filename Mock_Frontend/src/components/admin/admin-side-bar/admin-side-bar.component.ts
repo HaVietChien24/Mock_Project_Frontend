@@ -12,6 +12,7 @@ import { UserFullInfoDTO } from '../../../models/UserModels';
 })
 export class AdminSideBarComponent {
   currentUser: UserFullInfoDTO;
+
   constructor(private userService: UserService) {
     this.currentUser = userService.loadUserFromStorage();
   }

@@ -12,16 +12,7 @@
       class="navbar-collapse d-flex justify-content-between ms-5"
       id="navbarSupportedContent"
     >
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a
-            routerLink="/admin/dashboard"
-            class="nav-link active fw-bold"
-            *ngIf="userInfo.isAdmin === 'True'"
-            >Admin</a
-          >
-        </li>
-      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0"></ul>
 
       <form
         *ngIf="isShow"
@@ -76,6 +67,7 @@
           </div>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             @if(userInfo.isAdmin === "False") {
+
             <li>
               <a class="dropdown-item" routerLink="/wish-list">Your Wishlish</a>
             </li>
@@ -87,9 +79,16 @@
                 >Book Borrowing</a
               >
             </li>
-            <li><a class="dropdown-item" routerLink="#">History</a></li>
-            <li><hr class="dropdown-divider" /></li>
+
+            } @else {
+            <li>
+              <a class="dropdown-item" routerLink="/admin/dashboard"
+                >Admin Area</a
+              >
+            </li>
+
             }
+            <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item" routerLink="/profile">Your Profile</a>
             </li>

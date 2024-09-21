@@ -8,6 +8,7 @@ import { ListGenreComponent } from '../list-genre/list-genre.component';
 import { BookService } from '../../../service/book-service/book.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { UserFullInfoDTO } from '../../../models/UserModels';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
   title: string = 'All Books';
   message: string = 'Temporarily unavailable!';
   genreId: number = 0;
-  userInfo: any;
+  userInfo!: UserFullInfoDTO;
   action: string = 'all'; // all/filter-genre/search
   currentGenre: any;
   currentSearch: string = '';
@@ -139,14 +140,16 @@ export class HomeComponent implements OnInit {
   }
 
   addToWishlist(bookId: number) {
-    this.wishlistService.addToWishlist(this.userInfo.id, bookId).subscribe({
-      next: (response) => {
-        this.toastr.success('Add Successfully');
-      },
-      error: (error) => {
-        this.toastr.error('Add Fail: ', error.message);
-      },
-    });
+    this.wishlistService
+      .addToWishlist(Number(this.userInfo.id), bookId)
+      .subscribe({
+        next: (response) => {
+          this.toastr.success('Add Successfully');
+        },
+        error: (error) => {
+          this.toastr.error('Add Fail: ', error.message);
+        },
+      });
   }
 
   onPageChange(event: PageEvent) {

@@ -5,11 +5,28 @@
       [genreList]="genreList"
       [genreId]="genreId"
       (selectGenre)="getBooksByGenre($event)"
+      (selectAllBook)="getAllBooks()"
     ></app-list-genre>
   </div>
   <div class="main-content container-fluid p-5">
     <div class="h1">{{ title }}</div>
     <hr />
+    <div class="d-flex justify-content-between">
+      <div class="align-content-center fst-italic small text-secondary">
+        <i class="fa-solid fa-book fst-italic me-2"></i> Total books:
+        {{ totalItems }}
+      </div>
+      <mat-paginator
+        [length]="totalItems"
+        [pageSizeOptions]="[1, 2, 5, 10, 20]"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        (page)="onPageChange($event)"
+        aria-label="Select page"
+        [showFirstLastButtons]="true"
+      >
+      </mat-paginator>
+    </div>
 
     <section class="py-3">
       <div class="container px-4 px-lg-5 mt-5">
@@ -17,7 +34,7 @@
           class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
           <div
-            *ngIf="bookList.length == 0"
+            *ngIf="bookList && bookList.length == 0"
             class="fst-italic w-100 text-center"
           >
             {{ message }}

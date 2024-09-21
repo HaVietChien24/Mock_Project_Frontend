@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.search.emit(this.searchInput);
+      form.reset();
     }
   }
 }

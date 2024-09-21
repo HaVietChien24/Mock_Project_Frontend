@@ -28,5 +28,10 @@ export class UserBookBorrowComponent implements OnInit {
     })
 
   }
+  isDateTimePast(expectedPickupDate: string | Date): boolean {
+    const currentTime = new Date();
+    const expectedTime = new Date(expectedPickupDate);
+    return expectedTime < currentTime;
+  }
 
 }

@@ -1,10 +1,12 @@
 <div class="sidebar bg-light h-100 bg-white px-4 py-3">
   <div class="container-fluid">
-    <img
-      class="img-fluid mb-4"
-      src="assets/images/logo/logo-no-background.png"
-      alt=""
-    />
+    <div>
+      <img
+        class="img-fluid mb-4 ms-3"
+        src="assets/images/logo/logo-no-background.png"
+        alt=""
+      />
+    </div>
     <div class="text-lightgray ps-3">Main Menu</div>
     <div class="">
       <a
@@ -54,8 +56,12 @@
     <div class="d-flex p-2 bg-light rounded-4">
       <div class="w-25 ps-2">
         <img
-          class="img-fluid rounded-circle border border-primary"
-          src="https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg"
+          class="avatar rounded-circle border border-white"
+          src="{{
+            currentUser.imageURL
+              ? currentUser.imageURL
+              : 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
+          }}"
           alt=""
         />
       </div>

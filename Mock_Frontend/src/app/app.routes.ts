@@ -16,6 +16,7 @@ import { authGuard } from '../Guard/auth-guard/auth.guard';
 import { AdminManageRequestComponent } from '../components/admin/admin-manage-request/admin-manage-request.component';
 import { UnauthorizedComponent } from '../components/shared/unauthorized/unauthorized.component';
 import { adminOnlyGuard } from '../Guard/admin-only-guard/admin-only.guard';
+import { userOnlyGuard } from '../Guard/user-only-guard/user-only.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [authGuard] },
@@ -49,7 +50,7 @@ export const routes: Routes = [
   {
     path: 'user/user-book-borrow',
     component: UserBookBorrowComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, userOnlyGuard],
   },
   {
     path: 'admin/ManageUser',
@@ -61,8 +62,16 @@ export const routes: Routes = [
     component: BookDetailsComponent,
     canActivate: [authGuard],
   },
-  { path: 'wish-list', component: WishListComponent, canActivate: [authGuard] },
-  { path: 'requests', component: RequestsComponent, canActivate: [authGuard] },
+  {
+    path: 'wish-list',
+    component: WishListComponent,
+    canActivate: [authGuard, userOnlyGuard],
+  },
+  {
+    path: 'requests',
+    component: RequestsComponent,
+    canActivate: [authGuard, userOnlyGuard],
+  },
   {
     path: 'admin/ManageUser',
     component: AdminManageUserComponent,

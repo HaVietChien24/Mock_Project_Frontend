@@ -5,3 +5,13 @@
 .text-lightblue {
   color: #00aae8;
 }
+
+.img-fluid {
+  max-width: 80%;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}

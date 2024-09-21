@@ -16,15 +16,35 @@ export class BookService {
     private toastr: ToastrService
   ) {}
 
-  getAll(): Observable<any> {
+  getAll(pageNumber?: number, pageSize?: number): Observable<any> {
+    if (pageNumber && pageSize)
+      return this.http.get<any>(this.linkApi.getAllBooks, {
+        params: { pageNumber: pageNumber, pageSize: pageSize },
+      });
     return this.http.get<any>(this.linkApi.getAllBooks);
   }
 
-  getByGenreId(id: number): Observable<any> {
+  getByGenreId(
+    id: number,
+    pageNumber?: number,
+    pageSize?: number
+  ): Observable<any> {
+    if (pageNumber && pageSize)
+      return this.http.get<any>(`${this.linkApi.getBooksByGenreId}/${id}`, {
+        params: { pageNumber: pageNumber, pageSize: pageSize },
+      });
     return this.http.get<any>(`${this.linkApi.getBooksByGenreId}/${id}`);
   }
 
-  searchByTitleOrAuthor(search: string): Observable<any> {
+  searchByTitleOrAuthor(
+    search: string,
+    pageNumber?: number,
+    pageSize?: number
+  ): Observable<any> {
+    if (pageNumber && pageSize)
+      return this.http.get<any>(this.linkApi.searchByTitleOrAuthor, {
+        params: { search: search, pageNumber: pageNumber, pageSize: pageSize },
+      });
     return this.http.get<any>(this.linkApi.searchByTitleOrAuthor, {
       params: { search: search },
     });

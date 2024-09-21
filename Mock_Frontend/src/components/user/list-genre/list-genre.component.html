@@ -1,12 +1,14 @@
 <div class="sidebar bg-light h-100 bg-white px-4 py-4 border-end">
   <div class="container-fluid">
-    <a
+    <button
+      (click)="onSelectAllBook()"
       class="btn bg-lightblue w-100 rounded-4 py-2 text-white mt-3 mb-4"
-      routerLink="/"
+      href="/"
     >
       <i class="fa-solid fa-house me-3"></i>
-      All Books</a
-    >
+      All Books
+    </button>
+
     <div class="ps-3 h5">List Genres</div>
     <hr class="text-lightgray" />
     <div class="ps-3 pb-5">

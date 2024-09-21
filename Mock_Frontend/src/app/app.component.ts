@@ -14,17 +14,4 @@ import { UserFullInfoDTO } from '../models/UserModels';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-  constructor(private router: Router, private userService: UserService) {}
-
-  ngOnInit(): void {
-    // let currentUser: UserFullInfoDTO = this.userService.loadUserFromStorage();
-    // if (currentUser !== null) {
-    //   if (currentUser.isAdmin === 'True') {
-    //     this.router.navigate(['/admin/dashboard']);
-    //   } else {
-    //     this.router.navigate(['/']);
-    //   }
-    // }
-  }
-}
+export class AppComponent {}

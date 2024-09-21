@@ -1,8 +1,60 @@
 <div class="container-fluid">
-  <h2>Other Borrowing Details</h2>
+  <app-header></app-header>
+  <div class="main-content text-center py-4">
+    <!-- Check if data is available to display -->
+    <div *ngIf="data && data.length" class="table-responsive">
+      <!-- Table structure for borrowing details -->
+      <table class="table table-bordered table-hover shadow-sm rounded-lg">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Actual Return Date</th>
+            <th scope="col">Books Returned</th>
+            <th scope="col">IsBookPickedUp</th>
+            <th scope="col">BorrowingStatus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data">
+            <td style="width: 20%">
+              <img
+                [src]="item.imageUrl"
+                class="img-fluid"
+                alt="{{ item.bookName }} cover"
+                style="
+                  max-height: 100px;
+                  object-fit: cover;
+                  border-radius: 10px;
+                "
+              />
+            </td>
+            <td>{{ item.bookName }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.actualReturnDate | customdate }}</td>
+            <td>{{ item.numberReturnedBook }}</td>
+            <td>
+              {{ item.isBookPickedUp === true ? "Đã đến lấy" : "Chưa đến lấy" }}
+            </td>
+            <td>
+              @if (item.isBookPickedUp === false ) {
+              <span class="badge bg-info text-dark"> </span>
+              }@else if(item.isBookPickedUp === true) {
+              <span class="badge bg-info text-dark">Chưa trả sách </span>
+              }@else if(item.isBookPickedUp === true &&
+              item.quantity===item.numberReturnedBook){
+              <span class="badge bg-info text-dark">Đã trả đủ </span>
+              }
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <app-admin-book-borrowing-detail
-    [data]="data"
-    [showReturnButton]="false"
-  ></app-admin-book-borrowing-detail>
+    <!-- Display alert if no data is available -->
+    <div *ngIf="!data || !data.length" class="alert alert-warning mt-5">
+      No borrowing details available.
+    </div>
+  </div>
 </div>

@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const url = state.url; // Get the current URL
 
-  const currentUser: UserFullInfoDTO = userService.loadUserFromStorage();
+  const currentUser: any = localStorage.getItem('userToken');
 
   if (currentUser !== null) {
     // If authenticated and trying to access login or register, redirect to dashboard

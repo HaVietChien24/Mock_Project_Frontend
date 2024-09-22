@@ -50,6 +50,7 @@
         [disabled]="data.amount == 0"
         (click)="addToWishlist(data.id)"
         class="btn bg-lightblue rounded-4 text-white px-5 py-2"
+        *ngIf="userInfo.isAdmin === 'False'"
       >
         Add To Wishlist
       </button>

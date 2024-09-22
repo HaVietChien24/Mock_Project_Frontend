@@ -21,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword: boolean = false;
   isLoading: boolean = false;
@@ -37,6 +37,7 @@ export class LoginComponent {
       password: new FormControl('', [Validators.required]),
     });
   }
+  ngOnInit(): void {}
 
   handleShowPassword() {
     this.showPassword = !this.showPassword;

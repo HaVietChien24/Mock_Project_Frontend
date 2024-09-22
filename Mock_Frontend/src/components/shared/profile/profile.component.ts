@@ -103,38 +103,37 @@ export class ProfileComponent {
     this.isLoading = true;
     this.profileForm.disable();
 
-    this.userService
-      .updateProfile({
+    let updateInfo = {
+      ...this.profileForm.value,
+      imageURL: this.currentUser.imageURL,
+    };
+
+    if (this.selectedImageURL !== null) {
+      updateInfo = {
         ...this.profileForm.value,
         imageURL: this.selectedImageURL,
-      })
-      .subscribe({
-        next: (res: AuthResponse) => {
-          this.isLoading = false;
-          this.updateMode = false;
+      };
+    }
 
-          if (
-            this.currentUser!.imageURL !== null &&
-            this.currentUser!.imageURL !== ''
-          ) {
-            this.fireStorage.storage
-              .refFromURL(this.currentUser!.imageURL)
-              .delete();
-          }
-          this.selectedImageURL = null;
+    this.userService.updateProfile(updateInfo).subscribe({
+      next: (res: AuthResponse) => {
+        this.isLoading = false;
+        this.updateMode = false;
 
-          localStorage.setItem('userToken', res.token);
-          window.location.href = '/profile';
-        },
-        error: (error: HttpErrorResponse) => {
-          this.isLoading = false;
+        this.selectedImageURL = null;
 
-          this.profileForm.enable();
-          this.getInput('username')?.disable();
+        localStorage.setItem('userToken', res.token);
+        window.location.href = '/profile';
+      },
+      error: (error: HttpErrorResponse) => {
+        this.isLoading = false;
 
-          this.toastr.error(error.error.message);
-        },
-      });
+        this.profileForm.enable();
+        this.getInput('username')?.disable();
+
+        this.toastr.error(error.error.message);
+      },
+    });
   }
 
   async onImageChange(event: any) {
@@ -145,17 +144,12 @@ export class ProfileComponent {
     if (file) {
       const path = `yt/${file.name}`;
       try {
-        if (this.selectedImageURL) {
-          await this.fireStorage.refFromURL(this.selectedImageURL).delete();
-        }
-
         const uploadTask = await this.fireStorage.upload(path, file);
 
         const url = await uploadTask.ref.getDownloadURL();
 
         if (url) {
           this.selectedImageURL = url;
-          console.log(url);
         } else {
           this.toastr.error('Error updating avatar');
         }

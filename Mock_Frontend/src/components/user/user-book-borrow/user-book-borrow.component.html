@@ -12,6 +12,7 @@
             <th scope="col">Quantity</th>
             <th scope="col">Actual Return Date</th>
             <th scope="col">Expected Pickup Date</th>
+            <th scope="col">Actual Pickup Date</th>
             <th scope="col">Books Returned</th>
             <th scope="col">IsBookPickedUp</th>
             <th scope="col">BorrowingStatus</th>
@@ -41,6 +42,13 @@
               }}
             </td>
             <td>{{ item.expectedPickupDate | customdate }}</td>
+            <td>
+              {{
+                item.actualPickupDate
+                  ? (item.actualPickupDate | customdate)
+                  : ""
+              }}
+            </td>
             <td>{{ item.numberReturnedBook }}</td>
             <td>
               {{ item.isBookPickedUp === true ? "Đã đến lấy" : "Chưa đến lấy" }}

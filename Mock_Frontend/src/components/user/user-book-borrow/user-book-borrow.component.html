@@ -10,11 +10,12 @@
             <th scope="col">Image</th>
             <th scope="col">Book Name</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Actual Return Date</th>
             <th scope="col">Expected Pickup Date</th>
+            <th scope="col">Actual Return Date</th>
             <th scope="col">Actual Pickup Date</th>
             <th scope="col">Books Returned</th>
             <th scope="col">IsBookPickedUp</th>
+            <th scope="col">IsPickupLate</th>
             <th scope="col">BorrowingStatus</th>
           </tr>
         </thead>
@@ -33,7 +34,15 @@
               />
             </td>
             <td>{{ item.bookName }}</td>
+
             <td>{{ item.quantity }}</td>
+            <td>
+              {{
+                item.expectedPickupDate
+                  ? (item.expectedPickupDate | customdate)
+                  : ""
+              }}
+            </td>
             <td>
               {{
                 item.actualReturnDate
@@ -41,7 +50,7 @@
                   : ""
               }}
             </td>
-            <td>{{ item.expectedPickupDate | customdate }}</td>
+
             <td>
               {{
                 item.actualPickupDate
@@ -49,10 +58,14 @@
                   : ""
               }}
             </td>
-            <td>{{ item.numberReturnedBook }}</td>
+            <td>
+              {{ item.numberReturnedBook }}
+            </td>
             <td>
               {{ item.isBookPickedUp === true ? "Đã đến lấy" : "Chưa đến lấy" }}
             </td>
+
+            <td>{{ item.isPickUpLate }}</td>
             <td>
               @if (item.isBookPickedUp === false ) {
               <span class="badge bg-info text-dark"> </span>
@@ -65,7 +78,7 @@
               } @else if(item.isBookPickedUp === false &&
               item.quantity!==item.numberReturnedBook &&
               isDateTimePast(item.expectedPickupDate)){
-              <span class="badge bg-info text-dark">Đã trả đủ </span>
+              <span class="badge bg-info text-dark">Quá hạn trả </span>
               }
             </td>
           </tr>

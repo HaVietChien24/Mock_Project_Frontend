@@ -33,7 +33,13 @@
             </td>
             <td>{{ item.bookName }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.actualReturnDate | customdate }}</td>
+            <td>
+              {{
+                item.actualReturnDate
+                  ? (item.actualReturnDate | customdate)
+                  : ""
+              }}
+            </td>
             <td>{{ item.expectedPickupDate | customdate }}</td>
             <td>{{ item.numberReturnedBook }}</td>
             <td>

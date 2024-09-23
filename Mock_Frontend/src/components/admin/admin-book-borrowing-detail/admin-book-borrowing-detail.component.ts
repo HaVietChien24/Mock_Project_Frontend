@@ -43,7 +43,7 @@ export class AdminBookBorrowingDetailComponent implements OnInit {
             console.log(this.data);
             this.data.forEach((item: any) => {
               console.log(item);
-              if (item.isPickUpLate == true || item.numberReturnedBook === item.quantity) {
+              if (item.isPickUpLate == true || item.isBookPickedUp === false || item.numberReturnedBook === item.quantity) {
                 this.showButton = false;
               } else {
                 this.showButton = true;

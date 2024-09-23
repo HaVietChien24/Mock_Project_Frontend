@@ -62,6 +62,7 @@ export class ChangePasswordComponent {
       })
       .subscribe({
         next: (res: AuthResponse) => {
+          this.changePasswordForm.enable();
           this.toastr.success(res.message);
         },
         error: (error) => {

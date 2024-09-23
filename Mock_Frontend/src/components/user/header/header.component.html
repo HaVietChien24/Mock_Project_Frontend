@@ -61,7 +61,9 @@
               <div class="text-uppercase text-lightblue fw-bold">
                 {{ userInfo!.firstName }} {{ userInfo!.lastName }}
               </div>
-              <div class="small">Member</div>
+              <div class="small">
+                {{ userInfo.isAdmin === "True" ? "Admin" : "Member" }}
+              </div>
             </div>
             <i class="fa-solid fa-sort-down"></i>
           </div>

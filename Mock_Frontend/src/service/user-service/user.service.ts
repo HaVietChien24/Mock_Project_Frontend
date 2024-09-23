@@ -26,16 +26,14 @@ export class UserService {
     private http: HttpClient,
     private jwtService: JwtService,
     private router: Router
-  ) {}
+  ) { }
 
   getAllUser(): Observable<any> {
     return this.http.get<any>(this.userRootHttp + 'GetAllUser');
   }
 
-  // Cập nhật phương thức banAccount để nhận tham số isActive
   banAccount(userId: number): Observable<any> {
-    // Gửi yêu cầu PUT tới API với isActive
-    return this.http.put(`${this.userRootHttp}/BanAccount/${userId}`, {});
+    return this.http.put(`${this.userRootHttp}BanAccount/${userId}`, {});
   }
 
   login(body: LoginDTO): Observable<AuthResponse> {

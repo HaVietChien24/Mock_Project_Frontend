@@ -23,8 +23,8 @@ import { FirebaseModule } from '../../../app/firebase/firebase.module';
 })
 export class AdminManageBooksComponent implements OnInit {
 
-
-
+  isAddButtonDisabled = true; // Trạng thái nút "Add Book"
+  isUpdateButtonDisabled = true; // Trạng thái nút "update Book"
   isEditing: boolean = false; // Khai báo biến isEditing
   bookIdToEdit: number | null = null; // Khai báo biến bookIdToEdit
   // Mảng để chứa các genres được chọn
@@ -32,7 +32,6 @@ export class AdminManageBooksComponent implements OnInit {
   // Mảng để chứa danh sách genres từ API
   genresList: any[] = [];
   isDropdownOpen: boolean = false;  // Kiểm soát trạng thái dropdown
-
   // Đối tượng sách
   book: any = {
     title: '',              // Chuỗi
@@ -79,15 +78,22 @@ export class AdminManageBooksComponent implements OnInit {
       this.genresList = response;
     });
   }
+  // Hàm kiểm tra tính hợp lệ của form
+  checkFormValidity(): void {
+    this.isAddButtonDisabled = !(
 
-  // Hàm để quản lý việc chọn hoặc bỏ chọn một genre
-  onGenreChange(genre: any, event: any): void {
-    if (event.target.checked) {
-      this.selectedGenres.push(genre.name); // Thêm genre nếu được chọn
-    } else {
-      this.selectedGenres = this.selectedGenres.filter(g => g !== genre.name); // Bỏ genre nếu bỏ chọn
-    }
+      this.book.imageUrl
+    );
   }
+
+  checkFormUpdateValidity(): void {
+    this.isUpdateButtonDisabled = !(
+
+      this.bookupdate.imageUrl
+    );
+  }
+
+
   // Đổi trạng thái dropdown (mở/đóng)
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -97,11 +103,13 @@ export class AdminManageBooksComponent implements OnInit {
   addBook(): void {
     // Đảm bảo rằng genres là một mảng các chuỗi
     this.book.genres = this.selectedGenres;
-
+    delete this.book.genreNames;
     // Kiểm tra kỹ các kiểu dữ liệu để tránh lỗi định dạng
     this.book.publishedYear = Number(this.book.publishedYear);
     this.book.amount = Number(this.book.amount);
-    console.log('his.book', this.book);
+
+
+    console.log('this.book', this.book);
     this.bookService.addBook(this.book).subscribe({
       next: (response) => {
         // Xử lý phản hồi không phải JSON
@@ -135,11 +143,11 @@ export class AdminManageBooksComponent implements OnInit {
 
     this.bookupdate.genres = this.selectedGenres;
     delete this.bookupdate.genreNames;
- // Kiểm tra nếu người dùng đã chọn ảnh mới, cập nhật imageUrl tương ứng
- if (!this.bookupdate.imageUrl) {
-  alert('Please upload a book image before updating.');
-  return;
-}
+    // Kiểm tra nếu người dùng đã chọn ảnh mới, cập nhật imageUrl tương ứng
+    if (!this.bookupdate.imageUrl) {
+      alert('Please upload a book image before updating.');
+      return;
+    }
     console.log("Before sending to API:", this.bookupdate);
 
     this.bookService.updateBook(this.bookupdate).subscribe({
@@ -153,6 +161,15 @@ export class AdminManageBooksComponent implements OnInit {
       }
     });
   }
+  // Hàm để quản lý việc chọn hoặc bỏ chọn một genre
+  onGenreChange(genre: any, event: any): void {
+    if (event.target.checked) {
+      this.selectedGenres.push(genre.name); // Thêm genre nếu được chọn
+    } else {
+      this.selectedGenres = this.selectedGenres.filter(g => g !== genre.name); // Bỏ genre nếu bỏ chọn
+    }
+  }
+
 
   async onImageChange(event: any) {
     const file = event.target.files[0];  // Lấy file từ input
@@ -166,21 +183,27 @@ export class AdminManageBooksComponent implements OnInit {
         // Lấy URL của file sau khi tải lên thành công
         const url = await uploadTask.ref.getDownloadURL();
         // Kiểm tra nếu đang trong chế độ chỉnh sửa (updating)
-      if (this.isEditing) {
-        this.bookupdate.imageUrl = url; // Lưu URL vào đối tượng đang được chỉnh sửa
-      } else {
-        this.book.imageUrl = url; // Nếu không phải chế độ chỉnh sửa thì lưu vào đối tượng thêm mới
-      }
+        if (this.isEditing) {
+          this.bookupdate.imageUrl = url; // Lưu URL vào đối tượng đang được chỉnh sửa
+          this.checkFormUpdateValidity(); // Kiểm tra tính hợp lệ cho update
+        } else {
+          this.book.imageUrl = url; // Nếu không phải chế độ chỉnh sửa thì lưu vào đối tượng thêm mới
+          this.checkFormValidity(); // Kiểm tra tính hợp lệ cho add
+        }
         console.log('Download URL:', url);
 
         // Sau khi upload thành công, có thể xử lý tiếp, ví dụ lưu URL vào database
+
       } catch (error) {
         // Bắt lỗi khi upload thất bại
         console.error('Error uploading image:', error);
+
       }
     } else {
       console.log('No file selected');
+
     }
+
   }
 
 

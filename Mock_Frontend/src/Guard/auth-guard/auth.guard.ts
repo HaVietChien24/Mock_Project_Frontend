@@ -9,7 +9,8 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const url = state.url; // Get the current URL
 
-  const currentUser: any = localStorage.getItem('userToken');
+  const currentUser: any =
+    typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
 
   if (currentUser !== null) {
     // If authenticated and trying to access login or register, redirect to dashboard
@@ -22,14 +23,17 @@ export const authGuard: CanActivateFn = (route, state) => {
 
     return true;
   } else {
-    // If not authenticated and trying to access a protected page, redirect to login
-    if (url !== '/login' && url !== '/register') {
-      router.navigate(['/login']);
+    if (typeof window !== 'undefined') {
+      // If not authenticated and trying to access a protected page, redirect to login
+      if (url !== '/login' && url !== '/register') {
+        router.navigate(['/login']);
 
-      return false;
+        return false;
+      }
+      // Allow access to login and register pages
+      return true;
     }
-    // Allow access to login and register pages
 
-    return true;
+    return false;
   }
 };

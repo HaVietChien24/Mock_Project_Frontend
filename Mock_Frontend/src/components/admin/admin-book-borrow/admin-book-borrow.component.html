@@ -44,7 +44,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Tên người dùng
+          User Name
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.username }}
@@ -59,7 +59,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Ngày đặt sách
+          Request Date
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.requestDate | customdate }}
@@ -74,7 +74,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Ngày nhận dự kiến
+          Expected PickUp Date
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.expectedPickUpDate | customdate }}
@@ -89,7 +89,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Ngày trả dự kiến
+          Expected Return Date
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.expectedReturnDate | customdate }}
@@ -102,7 +102,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Tổng sách mượn
+          Total Book Borrow
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.totalQuantity }}
@@ -116,7 +116,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Trạng thái mượn
+          Borrowing Status
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.borrowingStatus }}
@@ -130,7 +130,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Tiền phạt
+          Penalty
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.penaltyFine }}
@@ -143,7 +143,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Đã đến lấy
+          Is Book Picked Up
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.isBookPickedUp }}
@@ -156,7 +156,7 @@
           mat-sort-header
           class="header-cell"
         >
-          Tình trạng lấy sách
+          Is Pick Up Late
         </th>
         <td mat-cell *matCellDef="let element" class="cell">
           {{ element.isPickUpLate }}

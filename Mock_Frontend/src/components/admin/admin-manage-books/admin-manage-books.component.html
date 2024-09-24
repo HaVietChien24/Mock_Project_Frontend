@@ -187,8 +187,16 @@
             </div>
             <div class="mb-3">
               <label for="bookImage" class="form-label">Image</label>
+
+
+
+              <!-- Trường chọn ảnh mới -->
               <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)" />
+              <!-- Hiển thị ảnh cũ -->
+              <img *ngIf="bookupdate.imageUrl" [src]="bookupdate.imageUrl" alt="Book Image" class="img-thumbnail mb-3"
+                style="max-width: 200px; max-height: 200px;" />
             </div>
+
             <button type="submit" class="btn btn-primary" [disabled]="isUpdateButtonDisabled">Update Book</button>
           </form>
         </div>

@@ -2,14 +2,11 @@
   <div class="sidebar">
     <app-admin-side-bar></app-admin-side-bar>
   </div>
-  <div class="main-content ms-4">
+  <div class="main-content m-4">
     <h3>Borrowing Details</h3>
 
     <!-- Kiểm tra nếu có dữ liệu để hiển thị bảng -->
-    <table
-      *ngIf="data && data.length"
-      class="table table-bordered table-striped mt-3"
-    >
+    <table *ngIf="data && data.length" class="table table-bordered table-striped ">
       <thead class="table-dark">
         <tr>
           <th>Book Name</th>
@@ -27,7 +24,7 @@
           <td>{{ item.quantity }}</td>
           <td>
             {{
-              item.actualReturnDate ? (item.actualReturnDate | customdate) : ""
+            item.actualReturnDate ? (item.actualReturnDate | customdate) : ""
             }}
           </td>
           <td>{{ item.numberReturnedBook }}</td>
@@ -35,13 +32,8 @@
           <td>{{ item.status }}</td>
           <td>
             <!-- Nút mở modal -->
-            <button
-              class="btn btn-primary"
-              (click)="openModal(item)"
-              *ngIf="showButton"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
+            <button class="btn btn-primary" (click)="openModal(item)" *ngIf="showButton" data-bs-toggle="modal"
+              data-bs-target="#updateModal">
               Return book
             </button>
           </td>
@@ -50,25 +42,14 @@
     </table>
 
     <!-- Modal Bootstrap -->
-    <div
-      class="modal fade"
-      id="updateModal"
-      tabindex="-1"
-      aria-labelledby="updateModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="updateModalLabel">
               Update Returned Books
             </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <!-- Hiển thị thông báo lỗi nếu có -->
@@ -78,35 +59,15 @@
 
             <form (ngSubmit)="updateReturnedBooks(selectedItem.id)">
               <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="bookName"
-                  [value]="selectedItem?.id"
-                  readonly
-                  hidden="true"
-                />
+                <input type="text" class="form-control" id="bookName" [value]="selectedItem?.id" readonly
+                  hidden="true" />
                 <label for="bookName" class="form-label">Book Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="bookName"
-                  [value]="selectedItem?.bookName"
-                  readonly
-                />
+                <input type="text" class="form-control" id="bookName" [value]="selectedItem?.bookName" readonly />
               </div>
               <div class="mb-3">
-                <label for="numberReturned" class="form-label"
-                  >Number of Books Returned</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="numberReturned"
-                  name="numberReturnedBook"
-                  [(ngModel)]="numberReturnedBook"
-                  required
-                />
+                <label for="numberReturned" class="form-label">Number of Books Returned</label>
+                <input type="number" class="form-control" id="numberReturned" name="numberReturnedBook"
+                  [(ngModel)]="numberReturnedBook" required />
               </div>
               <button type="submit" class="btn btn-success">
                 Returned Book

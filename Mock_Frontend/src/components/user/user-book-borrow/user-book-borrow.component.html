@@ -75,7 +75,7 @@
               }@else if(item.isBookPickedUp === true &&
               item.quantity===item.numberReturnedBook){
               <span class="badge bg-info text-dark">Đã trả đủ </span>
-              } @else if(item.isBookPickedUp === false &&
+              } @else if(item.isBookPickedUp === true &&
               item.quantity!==item.numberReturnedBook &&
               isDateTimePast(item.expectedPickupDate)){
               <span class="badge bg-info text-dark">Quá hạn trả </span>

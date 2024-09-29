@@ -6,7 +6,12 @@
     <h2 class="mb-4">Manage Book</h2>
 
     <!-- Button to trigger modal for adding new book -->
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addBookModal">
+    <button
+      type="button"
+      class="btn btn-primary mb-3"
+      data-bs-toggle="modal"
+      data-bs-target="#addBookModal"
+    >
       Add Book
     </button>
 
@@ -41,8 +46,12 @@
           <td><img src="{{ listBooks.imageUrl }}" class="img-thumbnail" /></td>
 
           <td>
-            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#updateBookModal"
-              (click)="editBook(listBooks)">
+            <button
+              class="btn btn-warning btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#updateBookModal"
+              (click)="editBook(listBooks)"
+            >
               Update Book
             </button>
           </td>
@@ -52,36 +61,67 @@
   </div>
 
   <!-- Modal for adding new book -->
-  <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="addBookModal"
+    tabindex="-1"
+    aria-labelledby="addBookModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addBookModalLabel">Add Book</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <form (ngSubmit)="addBook()">
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title" [(ngModel)]="book.title" name="title" required />
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                [(ngModel)]="book.title"
+                name="title"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
-              <textarea class="form-control" id="description" [(ngModel)]="book.description" name="description"
-                required></textarea>
+              <textarea
+                class="form-control"
+                id="description"
+                [(ngModel)]="book.description"
+                name="description"
+                required
+              ></textarea>
             </div>
 
             <div class="mb-3">
               <label>Genres</label>
               <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" (click)="toggleDropdown()">
+                <button
+                  class="btn btn-light dropdown-toggle"
+                  type="button"
+                  (click)="toggleDropdown()"
+                >
                   Select Genres
                 </button>
                 <div class="dropdown-menu" [class.show]="isDropdownOpen">
                   <div *ngFor="let genre of genresList" class="form-check">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" [value]="genre"
-                        (change)="onGenreChange(genre, $event)" />
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        [value]="genre"
+                        (change)="onGenreChange(genre, $event)"
+                      />
                       {{ genre.name }}
                     </label>
                   </div>
@@ -91,32 +131,77 @@
 
             <div class="mb-3">
               <label for="author" class="form-label">Author</label>
-              <input type="text" class="form-control" id="author" [(ngModel)]="book.author" name="author" required />
+              <input
+                type="text"
+                class="form-control"
+                id="author"
+                [(ngModel)]="book.author"
+                name="author"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="publisher" class="form-label">Publisher</label>
-              <input type="text" class="form-control" id="publisher" [(ngModel)]="book.publisher" name="publisher"
-                required />
+              <input
+                type="text"
+                class="form-control"
+                id="publisher"
+                [(ngModel)]="book.publisher"
+                name="publisher"
+                required
+              />
             </div>
             <div class="mb-3">
-              <label for="publishedYear" class="form-label">Published Year</label>
-              <input type="number" class="form-control" id="publishedYear" [(ngModel)]="book.publishedYear"
-                name="publishedYear" required />
+              <label for="publishedYear" class="form-label"
+                >Published Year</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="publishedYear"
+                [(ngModel)]="book.publishedYear"
+                name="publishedYear"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="ISBN" class="form-label">ISBN</label>
-              <input type="text" class="form-control" id="ISBN" [(ngModel)]="book.isbn" name="ISBN" required />
+              <input
+                type="text"
+                class="form-control"
+                id="ISBN"
+                [(ngModel)]="book.isbn"
+                name="ISBN"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="amount" class="form-label">Amount</label>
-              <input type="number" class="form-control" id="amount" [(ngModel)]="book.amount" name="amount" required />
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                [(ngModel)]="book.amount"
+                name="amount"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="bookImage" class="form-label">Image</label>
-              <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)" />
+              <input
+                type="file"
+                class="form-control"
+                id="bookImage"
+                (change)="onImageChange($event)"
+              />
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="isAddButtonDisabled">Add Book</button>
-
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="isAddButtonDisabled"
+            >
+              Add Book
+            </button>
           </form>
         </div>
       </div>
@@ -124,36 +209,70 @@
   </div>
 
   <!-- Modal Update Book -->
-  <div class="modal fade" id="updateBookModal" tabindex="-1" aria-labelledby="updateBookModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="updateBookModal"
+    tabindex="-1"
+    aria-labelledby="updateBookModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="updateBookModalLabel">Update Book</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <form (ngSubmit)="updateBook()">
             <div class="mb-3">
               <label for="updateTitle" class="form-label">Title</label>
-              <input type="text" class="form-control" id="updateTitle" [(ngModel)]="bookupdate.title" name="title"
-                required />
+              <input
+                type="text"
+                class="form-control"
+                id="updateTitle"
+                [(ngModel)]="bookupdate.title"
+                name="title"
+                required
+              />
             </div>
             <div class="mb-3">
-              <label for="updateDescription" class="form-label">Description</label>
-              <input type="text" class="form-control" id="updateDescription" [(ngModel)]="bookupdate.description"
-                name="description" required />
+              <label for="updateDescription" class="form-label"
+                >Description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="updateDescription"
+                [(ngModel)]="bookupdate.description"
+                name="description"
+                required
+              />
             </div>
             <div class="mb-3">
               <label>Genres</label>
               <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" (click)="toggleDropdown()">
+                <button
+                  class="btn btn-light dropdown-toggle"
+                  type="button"
+                  (click)="toggleDropdown()"
+                >
                   Select Genres
                 </button>
                 <div class="dropdown-menu" [class.show]="isDropdownOpen">
                   <div *ngFor="let genre of genresList" class="form-check">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" [value]="genre.name"
-                        (change)="onGenreChange(genre.name, $event)" [checked]="selectedGenres.includes(genre.name)" />
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        [value]="genre.name"
+                        (change)="onGenreChange(genre.name, $event)"
+                        [checked]="selectedGenres.includes(genre.name)"
+                      />
                       {{ genre.name }}
                     </label>
                   </div>
@@ -162,31 +281,64 @@
             </div>
             <div class="mb-3">
               <label for="updateAuthor" class="form-label">Author</label>
-              <input type="text" class="form-control" id="updateAuthor" [(ngModel)]="bookupdate.author" name="author"
-                required />
+              <input
+                type="text"
+                class="form-control"
+                id="updateAuthor"
+                [(ngModel)]="bookupdate.author"
+                name="author"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="updatePublisher" class="form-label">Publisher</label>
-              <input type="text" class="form-control" id="updatePublisher" [(ngModel)]="bookupdate.publisher"
-                name="publisher" required />
+              <input
+                type="text"
+                class="form-control"
+                id="updatePublisher"
+                [(ngModel)]="bookupdate.publisher"
+                name="publisher"
+                required
+              />
             </div>
             <div class="mb-3">
-              <label for="updatePublishedYear" class="form-label">Published Year</label>
-              <input type="number" class="form-control" id="updatePublishedYear" [(ngModel)]="bookupdate.publishedYear"
-                name="publishedYear" required />
+              <label for="updatePublishedYear" class="form-label"
+                >Published Year</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="updatePublishedYear"
+                [(ngModel)]="bookupdate.publishedYear"
+                name="publishedYear"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="updateISBN" class="form-label">ISBN</label>
-              <input type="text" class="form-control" id="updateISBN" [(ngModel)]="bookupdate.isbn" name="isbn"
-                required />
+              <input
+                type="text"
+                class="form-control"
+                id="updateISBN"
+                [(ngModel)]="bookupdate.isbn"
+                name="isbn"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="updateAmount" class="form-label">Amount</label>
-              <input type="number" class="form-control" id="updateAmount" [(ngModel)]="bookupdate.amount" name="amount"
-                required />
+              <input
+                type="number"
+                class="form-control"
+                id="updateAmount"
+                [(ngModel)]="bookupdate.amount"
+                name="amount"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="bookImage" class="form-label">Image</label>
+
               <!-- Trường chọn ảnh mới -->
               <input type="file" class="form-control" id="bookImage" (change)="onImageChange($event)" />
               <!-- Hiển thị ảnh cũ -->
@@ -195,10 +347,10 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update Book</button>
+
           </form>
         </div>
       </div>
     </div>
   </div>
-
 </div>

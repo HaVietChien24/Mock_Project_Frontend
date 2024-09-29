@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { UserService } from '../../../service/user-service/user.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../../widget/spinner/spinner.component';
 import { AuthResponse, UserFullInfoDTO } from '../../../models/UserModels';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -39,11 +39,11 @@ export class ProfileComponent {
   isLoading: boolean = false;
   currentUser: UserFullInfoDTO;
   selectedImageURL: string | null = null;
+  componentName = 'Profile';
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router,
     private toastr: ToastrService,
     private fireStorage: AngularFireStorage
   ) {

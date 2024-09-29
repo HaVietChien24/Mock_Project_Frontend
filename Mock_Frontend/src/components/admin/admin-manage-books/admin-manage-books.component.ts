@@ -101,6 +101,16 @@ export class AdminManageBooksComponent implements OnInit {
 
   // Hàm xử lý việc thêm sách
   addBook(): void {
+    if (this.book.title == "" || this.book.description == "" || this.book.author == "" || this.book.publisher == ""
+      || this.book.isbn == "" || this.book.genre == ""
+    ) {
+      alert('Please input all fields');
+      return;
+    }
+    if (this.book.amount < 0 || this.book.publishedYear < 0) {
+      alert('Please input amount or publishedYear > 0 ');
+      return;
+    }
     // Đảm bảo rằng genres là một mảng các chuỗi
     this.book.genres = this.selectedGenres;
     delete this.book.genreNames;
@@ -163,11 +173,20 @@ export class AdminManageBooksComponent implements OnInit {
   }
   // Hàm để quản lý việc chọn hoặc bỏ chọn một genre
   onGenreChange(genre: any, event: any): void {
-    if (event.target.checked) {
-      this.selectedGenres.push(genre.name); // Thêm genre nếu được chọn
+    if (this.isEditing) {
+      if (event.target.checked) {
+        this.selectedGenres.push(genre); // Thêm genre nếu được chọn
+      } else {
+        this.selectedGenres = this.selectedGenres.filter(g => g !== genre); // Bỏ genre nếu bỏ chọn
+      }
     } else {
-      this.selectedGenres = this.selectedGenres.filter(g => g !== genre.name); // Bỏ genre nếu bỏ chọn
+      if (event.target.checked) {
+        this.selectedGenres.push(genre.name); // Thêm genre nếu được chọn
+      } else {
+        this.selectedGenres = this.selectedGenres.filter(g => g !== genre.name); // Bỏ genre nếu bỏ chọn
+      }
     }
+
   }
 
 

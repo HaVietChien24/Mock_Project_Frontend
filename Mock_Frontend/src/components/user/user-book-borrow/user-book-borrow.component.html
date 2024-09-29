@@ -22,47 +22,42 @@
         <tbody>
           <tr *ngFor="let item of data">
             <td style="width: 20%">
-              <img
-                [src]="item.imageUrl"
-                class="img-fluid"
-                alt="{{ item.bookName }} cover"
-                style="
+              <img [src]="item.imageUrl" class="img-fluid" alt="{{ item.bookName }} cover" style="
                   max-height: 100px;
                   object-fit: cover;
                   border-radius: 10px;
-                "
-              />
+                " />
             </td>
             <td>{{ item.bookName }}</td>
 
             <td>{{ item.quantity }}</td>
             <td>
               {{
-                item.expectedPickupDate
-                  ? (item.expectedPickupDate | customdate)
-                  : ""
+              item.expectedPickupDate
+              ? (item.expectedPickupDate | customdate)
+              : ""
               }}
             </td>
             <td>
               {{
-                item.actualReturnDate
-                  ? (item.actualReturnDate | customdate)
-                  : ""
+              item.actualReturnDate
+              ? (item.actualReturnDate | customdate)
+              : ""
               }}
             </td>
 
             <td>
               {{
-                item.actualPickupDate
-                  ? (item.actualPickupDate | customdate)
-                  : ""
+              item.actualPickupDate
+              ? (item.actualPickupDate | customdate)
+              : ""
               }}
             </td>
             <td>
               {{ item.numberReturnedBook }}
             </td>
             <td>
-              {{ item.isBookPickedUp === true ? "Đã đến lấy" : "Chưa đến lấy" }}
+              {{ item.isBookPickedUp === true ? "Picked Up" : "Not Picked Up" }}
             </td>
 
             <td>{{ item.isPickUpLate }}</td>
@@ -71,14 +66,14 @@
               <span class="badge bg-info text-dark"> </span>
               }@else if(item.isBookPickedUp === true &&
               item.quantity!==item.numberReturnedBook) {
-              <span class="badge bg-info text-dark">Chưa trả sách </span>
+              <span class="badge bg-info text-dark"> Not Returned </span>
               }@else if(item.isBookPickedUp === true &&
               item.quantity===item.numberReturnedBook){
-              <span class="badge bg-info text-dark">Đã trả đủ </span>
+              <span class="badge bg-info text-dark">Returned </span>
               } @else if(item.isBookPickedUp === true &&
               item.quantity!==item.numberReturnedBook &&
               isDateTimePast(item.expectedPickupDate)){
-              <span class="badge bg-info text-dark">Quá hạn trả </span>
+              <span class="badge bg-info text-dark"> Overdue </span>
               }
             </td>
           </tr>
